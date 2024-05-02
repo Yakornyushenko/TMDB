@@ -1,0 +1,119 @@
+@import "../../ui/styles/constants/colors";
+
+.button {
+  font-family: "PT Sans", sans-serif;
+  border: none;
+  outline: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  height: 36px;
+  font-size: 16px;
+  transition: opacity ease-in-out 100ms;
+
+&_flexStart {
+  display: flex;
+  justify-content: flex-start;
+}
+
+  &__icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+
+    &_end {
+      margin-right: unset;
+      margin-left: 6px;
+    }
+  }
+
+  &:hover,
+  &:active {
+    opacity: 0.85;
+  }
+
+  &[disabled] {
+    opacity: 1;
+    cursor: no-drop;
+  }
+
+  &_default {
+    font-size: var(--button-default-fz);
+    font-weight: var(--button-default-fw);
+    color: var(--button-default-text);
+    background: var(--button-default-bg);
+
+    &[disabled] {
+      color: var(--button-default-disabled-text);
+      background-color: var(--button-default-disabled-bg);
+    }
+  }
+
+  &_hovered {
+    font-weight: 400;
+    line-height: 22px;
+    color: $color-black;
+    background: transparent;
+
+    &:hover,
+    &:active {
+      font-weight: 700;
+      color: $purple-Main-500;
+      background-color: $purple-200;
+      opacity: 0.85;
+    }
+
+    &[disabled] {
+      color: var(--button-primary-disabled-text);
+      background-color: var(--button-primary-disabled-bg);
+    }
+  }
+
+  &_secondary {
+    font-size: var(--button-secondary-fz);
+    font-weight: var(--button-secondary-fw);
+    color: var(--button-secondary-text);
+    background: var(--button-secondary-bg);
+    border: var(--button-secondary-border);
+
+    &[disabled] {
+      color: var(--button-secondary-disabled-text);
+      border: var(--button-secondary-disabled-border);
+    }
+  }
+
+  &_tertiary {
+    font-size: var(--button-tertiary-fz);
+    font-weight: var(--button-tertiary-fw);
+    color: var(--button-tertiary-text);
+    background: var(--button-tertiary-bg);
+    border: var(--button-tertiary-border);
+
+    &[disabled] {
+      color: var(--button-secondary-disabled-text);
+      border: var(--button-secondary-disabled-border);
+    }
+  }
+
+  &_link {
+    font-size: var(--button-link-fz);
+    font-weight: var(--button-link-fw);
+    color: var(--button-link-text);
+    background: none;
+    padding: 0 8px;
+
+    &[disabled] {
+      color: var(--button-link-disabled-text);
+    }
+  }  &_tertiary-link {
+       font-size: var(--button-link-fz);
+       font-weight: var(--button-link-fw);
+       color: var(--button-tertiary-link-text);
+       background: none;
+       padding: 0 8px;
+
+       &[disabled] {
+         color: var(--button-default-disabled-text);
+       }
+     }
+}
