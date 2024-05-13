@@ -1,0 +1,86 @@
+@import "../../styles/constants/colors";
+p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.movieCard {
+  display: flex;
+  width: 482px;
+  padding: 24px;
+  background-color: $color-white;
+  border: 1px solid $color-white;
+  border-radius: 12px;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__title {
+    color: $purple-Main-500;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24.2px;
+    margin-bottom: 13px;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+  &__sub-title {
+    color: $grey-600;
+  }
+  &__sub-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  &__title-rate-block {
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+
+    span {
+      height: 20px;
+      width: 11px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+
+      top: 2px;
+    }
+  }
+
+  &__rate-value {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+
+  }
+
+  &__rate-icon {
+    margin-left: 10px;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+      path {
+        stroke: #9854F6;
+      }
+    }
+    &_rated {
+         path {
+          fill: #9854F6;
+          stroke: #9854F6;
+      }
+    }
+  }
+}

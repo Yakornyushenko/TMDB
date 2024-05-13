@@ -1,0 +1,13 @@
+@import "../styles/constants/colors";
+
+.home {
+    background-color: $grey-100;
+    padding: 40px 80px;
+
+    &__title {
+        color: $color-black;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 45px;
+    }
+}

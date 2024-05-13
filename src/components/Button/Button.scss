@@ -1,0 +1,95 @@
+@import "../../styles/constants/colors";
+
+.button {
+  font-family: "PT Sans", sans-serif;
+  border: none;
+  outline: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: opacity ease-in-out 100ms;
+
+  &_purpleText {
+    color: $purple-Main-500 !important;
+  }
+
+  &_flexStart {
+  display: flex;
+  justify-content: flex-start;
+}
+
+  &:hover,
+  &:active {
+    opacity: 0.85;
+  }
+
+  &[disabled] {
+    opacity: 1;
+    cursor: no-drop;
+  }
+
+  &_default {
+    height: unset;
+    border: none;
+    background: transparent;
+    padding: 0;
+
+    &[disabled] {
+      color: $button-default-disabled-text;
+      background-color: $button-default-disabled-bg;
+    }
+  }
+
+  &_link {
+    font-weight: 400;
+    line-height: 22px;
+    color: $color-black;
+    background: transparent;
+
+    &:hover,
+    &:active {
+      font-weight: 700;
+      color: $purple-Main-500;
+      background-color: $purple-200;
+      opacity: 0.85;
+    }
+
+    &[disabled] {
+      &:hover,
+      &:active {
+        font-weight: 700;
+        color: $button-default-disabled-text;
+        background-color: $button-default-disabled-bg;;
+        opacity: 0.85;
+      }
+    }
+  }
+
+  &_outline {
+    font-size: 14px;
+    font-weight: 600;
+    color: $grey-600;
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: max-content;
+
+    &[disabled] {
+      color: $button-default-disabled-text;
+    }
+  }
+
+  &_fulfilled {
+    font-size: 14px;
+    font-weight: 700;
+    color: $color-white;
+    background-color: $purple-Main-500;
+    padding: 10px 20px;
+
+    &[disabled] {
+      color: $button-default-disabled-text;
+      background-color: $button-default-disabled-bg;
+    }
+  }
+}

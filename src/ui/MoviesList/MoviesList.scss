@@ -1,0 +1,12 @@
+@import "../../styles/constants/colors";
+.moviesList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  &__spinner {
+    display: flex;
+    justify-content: center;
+    height: 64vh;
+  }
+}
