@@ -33,21 +33,19 @@ export const Pagination: FC<Props> = ({
   if (totalPages <= 1) return;
 
   return (
-    <div className={b("wrapper")}>
-      <ReactPaginate
-        containerClassName={b("container", { loading: isLoading })}
-        nextLabel={<Image alt="Next page" src={nextPaginationArrow} />}
-        onPageChange={(selectedItem: { selected: number }) => {
-          if (isLoading) return;
-          setPage(selectedItem.selected);
-        }}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={0}
-        forcePage={page}
-        breakLabel={0}
-        pageCount={totalPages}
-        previousLabel={<Image alt="Previous page" src={prevPaginationArrow} />}
-      />
-    </div>
+    <ReactPaginate
+      containerClassName={b("container", { loading: isLoading })}
+      nextLabel={<Image alt="Next page" src={nextPaginationArrow} />}
+      onPageChange={(selectedItem: { selected: number }) => {
+        if (isLoading) return;
+        setPage(selectedItem.selected);
+      }}
+      pageRangeDisplayed={3}
+      marginPagesDisplayed={0}
+      forcePage={page}
+      breakLabel={0}
+      pageCount={totalPages}
+      previousLabel={<Image alt="Previous page" src={prevPaginationArrow} />}
+    />
   );
 };

@@ -1,12 +1,13 @@
 import MoviesList from "@/src/ui/MoviesList/MoviesList";
-import block from "bem-cn";
-
-const b = block("ratedMovies");
+import { Input } from "@/src/components/Input/Input";
+import styles from "./page.module.scss";
 
 export default function Page() {
   return (
-    <section>
-      <h1> RatedMovies</h1>
+    <section className={styles.ratedMovies}>
+      <div className={styles.body}>
+        <Input />
+      </div>
       <MoviesList />
     </section>
   );

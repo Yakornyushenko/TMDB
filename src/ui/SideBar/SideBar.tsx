@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import "../../styles/globals.css";
 import "./sideBar.scss";
@@ -10,11 +9,13 @@ import block from "bem-cn";
 import Link from "next/link";
 import { poppins } from "@/src/styles/fonts";
 import { usePathname } from "next/navigation";
+import { IS_HOME_PAGE, IS_RATED_PAGE } from "@/src/constants";
 
 const b = block("sideBar");
 
 export default function SideBar() {
   const pathName = usePathname();
+
   return (
     <div className={b()}>
       <div>
@@ -26,18 +27,18 @@ export default function SideBar() {
 
       <div className={b("btn-block")}>
         <Link
-          disabled={pathName === "/"}
+          disabled={pathName === IS_HOME_PAGE}
           className={b("link")}
           style={{ marginBottom: 16 }}
-          href="/"
+          href={IS_HOME_PAGE}
         >
           Movies
         </Link>
 
         <Link
-          disabled={pathName === "/ratedMovies"}
+          disabled={pathName === IS_RATED_PAGE}
           className={b("link")}
-          href="/ratedMovies"
+          href={IS_RATED_PAGE}
         >
           Rated movies
         </Link>

@@ -9,4 +9,14 @@
     justify-content: center;
     height: 64vh;
   }
+
+  &__pagination {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 75px;
+
+    &_ratedPage {
+      justify-content: center !important;
+    }
+  }
 }
