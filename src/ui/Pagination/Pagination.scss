@@ -1,16 +1,11 @@
 @import "../../styles/constants/colors";
 .pagination {
 
-  &__wrapper {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 75px;
-  }
+
 
   &__container {
       user-select: none;
       display: flex;
-      justify-content: flex-end;
       margin-top: 23px;
       height: 32px;
 

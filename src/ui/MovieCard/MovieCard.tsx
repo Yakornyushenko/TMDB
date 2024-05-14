@@ -8,6 +8,7 @@ import "./MovieCard.scss";
 import { BASE_IMAGE_URL } from "@/src/constants";
 import RateIcon from "@/public/icons/RateIcon";
 import { RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
+import Link from "next/link";
 
 const b = block("movieCard");
 
@@ -38,7 +39,9 @@ const MovieCard: FC<Props> = ({
     parseStorage = JSON.parse(stringStorage),
     checkRate = parseStorage?.find((item) => item.id === id);
 
-  const rateIconHandler = () => {
+  const rateIconHandler = (e) => {
+    e.preventDefault();
+
     setIsOpenRateModal(true);
     setRateModalProps({
       id: id,
@@ -53,13 +56,10 @@ const MovieCard: FC<Props> = ({
 
   return (
     <>
-      <div key={id} className={b()}>
+      <Link key={id} className={b()} href={`/movie/${id}`}>
         <Image
-          style={{
-            aspectRatio: 16 / 9,
-            marginRight: 16,
-          }}
-          width={119}
+          className={b("image")}
+          width={120}
           height={170}
           src={image ? `${BASE_IMAGE_URL}${image}` : noImage}
           alt="film image"
@@ -71,7 +71,7 @@ const MovieCard: FC<Props> = ({
               <p className={b("title")}>{title}</p>
 
               <div
-                onClick={() => rateIconHandler()}
+                onClick={(e) => rateIconHandler(e)}
                 className={b("title-rate-block")}
               >
                 <RateIcon
@@ -108,7 +108,7 @@ const MovieCard: FC<Props> = ({
             <p>{genres?.slice(0, 3).join(", ")}</p>
           </div>
         </div>
-      </div>
+      </Link>
     </>
   );
 };

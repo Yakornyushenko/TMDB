@@ -13,11 +13,15 @@ import spinner from "../../../public/icons/loadings/spinner.svg";
 import "./MoviesList.scss";
 import { RateModal, RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { IS_HOME_PAGE, IS_RATED_PAGE } from "@/src/constants";
 
 const b = block("moviesList");
 
-const MoviesList = () => {
+export default function MoviesLis() {
+  //Routing
   const pathName = usePathname();
+  const router = useRouter();
   // Modal
   const [isOpenRateModal, setIsOpenRateModal] = useState<boolean>(false);
   const [rateModalProps, setRateModalProps] = useState<RateModalProps>();
@@ -32,17 +36,14 @@ const MoviesList = () => {
   const [paginationInfo, setPaginationInfo] = useState<Movies.PaginationInfo>(
     initialPaginationInfo
   );
-
+  // MANAGERS
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // console.log("storage", storage);
-  // console.log("parseStorage", parseStorage);
-  // console.log("page", page);
   useEffect(() => {
     setIsLoading(true);
     fetchGenres().then((data) => setGenres(data));
 
-    if (pathName === "/") {
+    if (pathName === IS_HOME_PAGE) {
       fetchMovies(page)
         .then((data) => {
           setMovies(data.results);
@@ -54,7 +55,7 @@ const MoviesList = () => {
           });
         })
         .finally(() => setIsLoading(false));
-    } else if (pathName === "/ratedMovies") {
+    } else if (pathName === IS_RATED_PAGE) {
       setPaginationInfo({
         totalResults: parseStorage?.length ?? 0,
         page: page,
@@ -63,7 +64,7 @@ const MoviesList = () => {
 
       const firstSliceValue = page * 4;
       const secondSliceValue = (page + 1) * 4;
-      setStorage(parseStorage.slice(firstSliceValue, secondSliceValue));
+      setStorage(parseStorage?.slice(firstSliceValue, secondSliceValue));
 
       setIsLoading(false);
     }
@@ -75,6 +76,12 @@ const MoviesList = () => {
     if (isOpenRateModal) window.document.body.classList.add("isRateModalOpen");
     else window.document.body.classList.remove("isRateModalOpen");
   }, [isOpenRateModal]);
+
+  useEffect(() => {
+    if (movies === undefined && !isLoading) {
+      (storage?.length < 1 || storage === undefined) && router.push("/empty");
+    }
+  }, [movies, isLoading, storage, router]);
 
   const selectedGenres = (genresIds: number[] | undefined) => {
     return genres
@@ -89,6 +96,7 @@ const MoviesList = () => {
       </div>
     );
   }
+
   return (
     <>
       <div className={b()}>
@@ -124,17 +132,20 @@ const MoviesList = () => {
               />
             ))}
       </div>
-      <Pagination
-        isLoading={isLoading}
-        page={page}
-        setPage={setPage}
-        totalPages={paginationInfo.totalPages}
-      />
+      <div
+        className={b("pagination", { ratedPage: pathName === IS_RATED_PAGE })}
+      >
+        <Pagination
+          isLoading={isLoading}
+          page={page}
+          setPage={setPage}
+          totalPages={paginationInfo.totalPages}
+        />
+      </div>
+
       {isOpenRateModal && (
         <RateModal setIsOpen={setIsOpenRateModal} {...rateModalProps} />
       )}
     </>
   );
-};
-
-export default MoviesList;
+}

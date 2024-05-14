@@ -12,7 +12,6 @@ export async function fetchMovies(page) {
     `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page + 1}&sort_by=popularity.desc`,
     {
       method: "GET",
-      cache: "force-cache",
       next: {
         revalidate: 1800,
       },
@@ -30,6 +29,29 @@ export async function fetchMovies(page) {
     console.error(error);
   }
 }
+const options = {
+  method: "GET",
+  next: {
+    revalidate: 1800,
+  },
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${apiKey}`,
+  },
+};
+
+// Movie
+export async function fetchFilm(id) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+    options
+  );
+  try {
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // Genres
 export async function fetchGenres() {
@@ -37,7 +59,6 @@ export async function fetchGenres() {
     "https://api.themoviedb.org/3/genre/movie/list?language=en",
     {
       method: "GET",
-      cache: "force-cache",
       next: {
         revalidate: 1800,
       },

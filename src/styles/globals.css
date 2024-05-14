@@ -4,8 +4,13 @@
     box-sizing: border-box;
     position: relative;
 }
-a, li{
+a, li, ul, ol {
+    list-style-type: none;
+    color: initial;
     text-decoration: none;
+}
+a:hover, a:active {
+    color: initial;
 }
 
 body {
