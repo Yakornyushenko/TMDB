@@ -32,7 +32,7 @@ const MovieCard: FC<Movies.MovieCard> = ({
     parseStorage = JSON.parse(stringStorage),
     checkRate = parseStorage?.find((item) => item.id === id);
 
-  const rateIconHandler = (e) => {
+  const rateIconHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
 
     setIsOpenRateModal(true);
@@ -46,21 +46,23 @@ const MovieCard: FC<Movies.MovieCard> = ({
       genres: genres,
     });
   };
-  const durationFormat = (duration) => {
+  const durationFormat = (duration: number | undefined) => {
     const hour = String(duration).slice(0, 1);
     const min = String(duration).slice(1, 3);
     return `${hour}h  ${min}m`;
   };
 
-  const dateFormat = (dateString) => {
+  const dateFormat = (dateString: string | undefined) => {
     const options = {
       year: "numeric",
       month: "long",
       day: "numeric",
     };
-    return new Date(dateString).toLocaleDateString("en-US", options);
+    return (
+      dateString && new Date(dateString)?.toLocaleDateString("en-US", options)
+    );
   };
-  const moneyFormat = (summary) => {
+  const moneyFormat = (summary: number | undefined) => {
     const options = {
       style: "currency",
       currency: "USD",

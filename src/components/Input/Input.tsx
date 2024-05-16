@@ -54,17 +54,17 @@ export const Input: FC<Props> = ({
 }) => {
   let [currentValue, setCurrentValue] = useState<string | number>("");
 
-  const handlerFocus = (event) => {
+  const handlerFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     event.preventDefault();
     onFocus(event);
   };
 
-  const handlerBlur = (event) => {
+  const handlerBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     event.preventDefault();
     onBlur(event);
   };
 
-  const handlerKeyDown = (event) => {
+  const handlerKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (["Enter", "NumpadEnter"].includes(event.code)) {
       onPressEnter(event);
     }
