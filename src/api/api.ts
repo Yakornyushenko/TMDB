@@ -1,13 +1,8 @@
-// curl --request GET \
-//      --url 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc' \
-//      --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MzYyMzQ2YjQ3NzUzZjY1YmJkMTg5YjBjNzJjOTI2MSIsInN1YiI6IjY2MzY0ZDk5NjYxMWI0MDEyYTY3ZTEzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.eJ1d8L0sPLih-_QQzvlpePKxBckeMok0y6N02fFjYfM' \
-//      --header 'accept: application/json'
-
 export const apiKey =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MzYyMzQ2YjQ3NzUzZjY1YmJkMTg5YjBjNzJjOTI2MSIsInN1YiI6IjY2MzY0ZDk5NjYxMWI0MDEyYTY3ZTEzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.eJ1d8L0sPLih-_QQzvlpePKxBckeMok0y6N02fFjYfM";
 
 // Movies
-export async function fetchMovies(page) {
+export async function fetchMovies(page: any) {
   const response = await fetch(
     `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page + 1}&sort_by=popularity.desc`,
     {
@@ -41,7 +36,7 @@ const options = {
 };
 
 // Movie
-export async function fetchFilm(id) {
+export async function fetchFilm(id: number) {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
     options
@@ -53,7 +48,7 @@ export async function fetchFilm(id) {
   }
 }
 // Movie Trailer
-export async function fetchMovieTrailer(id) {
+export async function fetchMovieTrailer(id: number) {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
     options
