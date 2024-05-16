@@ -22,13 +22,14 @@ export const RateModalForm: FC<RateModalProps> = (props) => {
   const { movieTitle, setIsOpen, id } = props;
 
   useEffect(() => {
-    const storageRatedMovies = JSON.parse(localStorage.getItem("movies"));
-    storageRatedMovies?.find((item) => item.id === id);
-    setRate(storageRatedMovies);
-  }, [id]);
+    const stringStorage = localStorage.getItem("movies");
+    const storageRatedMovies = JSON.parse(stringStorage);
+    const foundMovie = storageRatedMovies.find((item) => item.id === id);
+    setRate(foundMovie?.personalRating);
+  }, []);
 
   const [selected, setSelected] = useState<number | undefined>(undefined);
-  const [rate, setRate] = useState<number | undefined>(undefined);
+  const [rate, setRate] = useState<number | undefined>();
 
   const arrayStars = Array.from({ length: 10 }, (component, index) => (
     <RateIcon key={index} />

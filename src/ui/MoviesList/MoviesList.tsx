@@ -29,14 +29,7 @@ export default function MoviesLis() {
   // DATA/API
   const [movies, setMovies] = useState<Movies.Movie[]>();
   const [genres, setGenres] = useState<Movies.Genre[]>();
-  const [storage, setStorage] = useState<any>();
   const [movieStorage, setMovieStorage] = useState<any>();
-
-  useEffect(() => {
-    const stringStorage = localStorage.getItem("movies");
-    const parseStorage = JSON.parse(stringStorage);
-    setStorage(parseStorage);
-  }, []);
 
   // pagination
   const [page, setPage] = useState<number>(initialPaginationInfo.page);
@@ -47,6 +40,9 @@ export default function MoviesLis() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    const stringStorage = localStorage.getItem("movies");
+    const parseStorage = JSON.parse(stringStorage);
+
     setIsLoading(true);
     fetchGenres().then((data) => setGenres(data));
 
@@ -64,19 +60,19 @@ export default function MoviesLis() {
         .finally(() => setIsLoading(false));
     } else if (pathName === IS_RATED_PAGE) {
       setPaginationInfo({
-        totalResults: storage?.length ?? 0,
+        totalResults: parseStorage?.length ?? 0,
         page: page,
-        totalPages: storage?.length / 4 ?? 0,
+        totalPages: parseStorage?.length >= 4 ? parseStorage?.length / 4 : 0,
       });
       // rating's pagination count
       const firstSliceValue = page * 4;
       const secondSliceValue = (page + 1) * 4;
-      setMovieStorage(storage?.slice(firstSliceValue, secondSliceValue));
+      setMovieStorage(parseStorage?.slice(firstSliceValue, secondSliceValue));
 
       setIsLoading(false);
     }
     //eslint-disable-next-line
-  }, [page, pathName, storage]);
+  }, [page, pathName, localStorage.getItem("movies")]);
 
   // remove/add page scroll
   useEffect(() => {
@@ -89,7 +85,7 @@ export default function MoviesLis() {
       (movieStorage?.length < 1 || movieStorage === undefined) &&
         router.push("/empty");
     }
-  }, [movies, isLoading, movieStorage, router]);
+  }, [movies, isLoading, router, movieStorage]);
 
   if (isLoading && movies) {
     return (
@@ -98,7 +94,7 @@ export default function MoviesLis() {
       </div>
     );
   }
-  console.log("movies", movies);
+
   return (
     <>
       <div className={b()}>

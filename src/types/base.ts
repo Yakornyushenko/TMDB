@@ -43,7 +43,6 @@ export namespace Movies {
     total_pages: number;
   }
   export interface PaginationInfo {
-    perPage?: number;
     totalResults: number;
     totalPages: number;
     page: number;
