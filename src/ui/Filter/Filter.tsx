@@ -29,7 +29,7 @@ export default function Filter() {
 
   useEffect(() => {
     setSelectedGenre(genres?.find((item) => item.id === genre));
-  }, [genre, genres]);
+  }, [genre]);
 
   return (
     <section className={b()}>
