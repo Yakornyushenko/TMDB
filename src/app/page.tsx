@@ -10,8 +10,12 @@ export default async function Page() {
     <main className={b()}>
       <section>
         <h1 className={b()}>Movies</h1>
-        <Filter />
-        <MoviesList />
+
+        {typeof window !== "undefined" && (
+          <>
+            <Filter /> <MoviesList />
+          </>
+        )}
       </section>
     </main>
   );
