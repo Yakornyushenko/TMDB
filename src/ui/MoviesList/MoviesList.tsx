@@ -15,6 +15,7 @@ import { RateModal, RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { IS_HOME_PAGE, IS_RATED_PAGE } from "@/src/constants";
+import { selectedGenres } from "@/src/lib/utils";
 
 const b = block("moviesList");
 
@@ -61,7 +62,7 @@ export default function MoviesLis() {
         page: page,
         totalPages: parseStorage?.length / 4 ?? 0,
       });
-
+      // rating's pagination count
       const firstSliceValue = page * 4;
       const secondSliceValue = (page + 1) * 4;
       setStorage(parseStorage?.slice(firstSliceValue, secondSliceValue));
@@ -83,20 +84,14 @@ export default function MoviesLis() {
     }
   }, [movies, isLoading, storage, router]);
 
-  const selectedGenres = (genresIds: number[] | undefined) => {
-    return genres
-      ?.filter((item) => genresIds?.includes(item.id))
-      ?.map((item) => item.name);
-  };
-
   if (isLoading && movies) {
     return (
       <div className={b("spinner")}>
-        <Image src={spinner} alt={"Loader"} />
+        <Image src={spinner} alt={"Spinner"} />
       </div>
     );
   }
-
+  console.log("movies", movies);
   return (
     <>
       <div className={b()}>
@@ -106,13 +101,13 @@ export default function MoviesLis() {
                 setRateModalProps={setRateModalProps}
                 isOpenRateModal={isOpenRateModal}
                 setIsOpenRateModal={setIsOpenRateModal}
-                genres={selectedGenres(item?.genre_ids)}
-                image={item?.backdrop_path}
+                genres={selectedGenres(item?.genre_ids, genres)}
+                image={item?.poster_path}
                 rating={item?.vote_average}
-                title={item?.title}
+                title={item.title}
                 release={item?.release_date}
                 key={item?.id}
-                id={item?.id}
+                id={item.id}
                 voteCount={item?.vote_count}
               />
             ))
