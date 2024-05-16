@@ -24,7 +24,7 @@ export const RateModalForm: FC<RateModalProps> = (props) => {
   useEffect(() => {
     const stringStorage = localStorage?.getItem("movies");
     const storageRatedMovies = JSON.parse(stringStorage);
-    const foundMovie = storageRatedMovies.find((item) => item.id === id);
+    const foundMovie = storageRatedMovies?.find((item) => item.id === id);
     setRate(foundMovie?.personalRating);
   }, []);
 
