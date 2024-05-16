@@ -28,18 +28,14 @@ const MovieCard: FC<Movies.MovieCard> = ({
   budget,
   revenue,
 }) => {
-  const [storage, setStorage] = useState();
-  const [checkRate, setCheckRate] = useState();
+  const [checkRate, setCheckRate] = useState<number>();
 
   useEffect(() => {
     const stringStorage = localStorage?.getItem("movies");
     const parseStorage = JSON.parse(stringStorage);
-    setStorage(parseStorage);
-  }, [localStorage?.getItem("movies")]);
-
-  useEffect(() => {
-    setCheckRate(storage?.find((item) => item.id === id));
-  }, [storage]);
+    const movie = parseStorage?.find((item) => item.id === id);
+    setCheckRate(movie?.personalRating);
+  }, []);
 
   const rateIconHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -78,7 +74,7 @@ const MovieCard: FC<Movies.MovieCard> = ({
     };
     return summary?.toLocaleString("en-US", options);
   };
-
+  console.log("checkRate", checkRate);
   return (
     <Link
       key={id}
@@ -103,12 +99,12 @@ const MovieCard: FC<Movies.MovieCard> = ({
               className={b("title-rate-block")}
             >
               <RateIcon
-                className={b("rate-icon", { rated: checkRate !== undefined })}
+                className={b("rate-icon", {
+                  rated: checkRate !== undefined,
+                })}
               />
               {checkRate && (
-                <span className={b("rate-value")}>
-                  {checkRate.personalRating}
-                </span>
+                <span className={b("rate-value")}>{checkRate}</span>
               )}
             </div>
           </div>

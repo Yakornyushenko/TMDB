@@ -76,6 +76,7 @@ export const RateModalForm: FC<RateModalProps> = (props) => {
       }
     }
     setIsOpen(false);
+    window.location.reload();
   };
 
   const removeRatedMovie = () => {

@@ -72,7 +72,7 @@ export default function MoviesLis() {
       setIsLoading(false);
     }
     //eslint-disable-next-line
-  }, [page, pathName, localStorage?.getItem("movies")]);
+  }, [page, pathName]);
 
   // remove/add page scroll
   useEffect(() => {

@@ -32,8 +32,6 @@ const Movie = ({ id }) => {
     // eslint-disable-next-line
   }, []);
 
-  console.log("film", film);
-
   if (isLoading && !film) {
     return (
       <div className={b("spinner")}>
