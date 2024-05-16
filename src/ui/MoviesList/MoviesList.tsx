@@ -20,7 +20,6 @@ import { selectedGenres } from "@/src/lib/utils";
 const b = block("moviesList");
 
 export default function MoviesLis() {
-  //HI
   //Routing
   const pathName = usePathname();
   const router = useRouter();
