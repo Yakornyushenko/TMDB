@@ -58,9 +58,11 @@
         }
 
         &.selected {
-          color: $color-white;
           background-color: $purple-Main-500;
           border-color: $purple-Main-500;
+          a {
+            color: $color-white;
+          }
         }
 
         /* Arrows */

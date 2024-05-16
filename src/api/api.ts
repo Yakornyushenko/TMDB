@@ -52,6 +52,20 @@ export async function fetchFilm(id) {
     console.error(error);
   }
 }
+// Movie Trailer
+export async function fetchMovieTrailer(id) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+    options
+  );
+  try {
+    const res = await response.json();
+    const { key } = res?.results[0];
+    return key;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // Genres
 export async function fetchGenres() {
