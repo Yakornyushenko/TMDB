@@ -22,7 +22,7 @@ export const RateModalForm: FC<RateModalProps> = (props) => {
   const { movieTitle, setIsOpen, id } = props;
 
   useEffect(() => {
-    const stringStorage = localStorage.getItem("movies");
+    const stringStorage = localStorage?.getItem("movies");
     const storageRatedMovies = JSON.parse(stringStorage);
     const foundMovie = storageRatedMovies.find((item) => item.id === id);
     setRate(foundMovie?.personalRating);
@@ -46,7 +46,7 @@ export const RateModalForm: FC<RateModalProps> = (props) => {
     personalRating: rate,
   };
   // localStorage logic
-  const stringRatedMovies = localStorage.getItem("movies");
+  const stringRatedMovies = localStorage?.getItem("movies");
   const parseMovies = JSON.parse(stringRatedMovies);
 
   const isDuplicateMovie = parseMovies?.find(
@@ -57,7 +57,7 @@ export const RateModalForm: FC<RateModalProps> = (props) => {
   );
 
   const changeRateMovie = () => {
-    const ratedMovies = JSON.parse(localStorage.getItem("movies"));
+    const ratedMovies = JSON.parse(localStorage?.getItem("movies"));
 
     if (ratedMovies === null) {
       const arr = [];

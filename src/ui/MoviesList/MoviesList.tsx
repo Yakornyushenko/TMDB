@@ -40,7 +40,7 @@ export default function MoviesLis() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const stringStorage = localStorage.getItem("movies");
+    const stringStorage = localStorage?.getItem("movies");
     const parseStorage = JSON.parse(stringStorage);
 
     setIsLoading(true);
@@ -72,7 +72,7 @@ export default function MoviesLis() {
       setIsLoading(false);
     }
     //eslint-disable-next-line
-  }, [page, pathName, localStorage.getItem("movies")]);
+  }, [page, pathName, localStorage?.getItem("movies")]);
 
   // remove/add page scroll
   useEffect(() => {

@@ -30,12 +30,12 @@ const MovieCard: FC<Movies.MovieCard> = ({
 }) => {
   const [storage, setStorage] = useState();
   const [checkRate, setCheckRate] = useState();
+
   useEffect(() => {
-    const stringStorage = localStorage.getItem("movies");
+    const stringStorage = localStorage?.getItem("movies");
     const parseStorage = JSON.parse(stringStorage);
     setStorage(parseStorage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localStorage.getItem("movies")]);
+  }, [localStorage?.getItem("movies")]);
 
   useEffect(() => {
     setCheckRate(storage?.find((item) => item.id === id));
