@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Button } from "@/src/components/Button/Button";
 import { ButtonType } from "@/src/components/Button/buttonType";
 import block from "bem-cn";
@@ -19,13 +19,15 @@ interface RateModalProps {
 
 export const RateModalForm: FC<RateModalProps> = (props) => {
   const { movieTitle, setIsOpen, id } = props;
-  const storageRatedMovies = JSON.parse(localStorage.getItem("movies"));
-  const rateMovie = storageRatedMovies?.find((item) => item.id === id);
+
+  useEffect(() => {
+    const storageRatedMovies = JSON.parse(localStorage.getItem("movies"));
+    const rateMovie = storageRatedMovies?.find((item) => item.id === id);
+    setRate(rateMovie);
+  }, []);
 
   const [selected, setSelected] = useState<number | undefined>(undefined);
-  const [rate, setRate] = useState<number | undefined>(
-    rateMovie?.personalRating || undefined
-  );
+  const [rate, setRate] = useState<number | undefined>(undefined);
 
   const arrayStars = Array.from({ length: 10 }, (component, index) => (
     <RateIcon key={index} />

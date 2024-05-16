@@ -27,11 +27,17 @@ export default function MoviesLis() {
   const [isOpenRateModal, setIsOpenRateModal] = useState<boolean>(false);
   const [rateModalProps, setRateModalProps] = useState<RateModalProps>();
   // DATA/API
-  const [movies, setMovies] = useState<Movies.Movie[]>(),
-    [genres, setGenres] = useState<Movies.Genre[]>(),
-    stringStorage = localStorage.getItem("movies"),
-    parseStorage = JSON.parse(stringStorage),
-    [storage, setStorage] = useState<any>();
+  const [movies, setMovies] = useState<Movies.Movie[]>();
+  const [genres, setGenres] = useState<Movies.Genre[]>();
+  const [storage, setStorage] = useState<any>();
+  const [movieStorage, setMovieStorage] = useState<any>();
+
+  useEffect(() => {
+    const stringStorage = localStorage.getItem("movies");
+    const parseStorage = JSON.parse(stringStorage);
+    setStorage(parseStorage);
+  }, []);
+
   // pagination
   const [page, setPage] = useState<number>(initialPaginationInfo.page);
   const [paginationInfo, setPaginationInfo] = useState<Movies.PaginationInfo>(
@@ -58,19 +64,19 @@ export default function MoviesLis() {
         .finally(() => setIsLoading(false));
     } else if (pathName === IS_RATED_PAGE) {
       setPaginationInfo({
-        totalResults: parseStorage?.length ?? 0,
+        totalResults: storage?.length ?? 0,
         page: page,
-        totalPages: parseStorage?.length / 4 ?? 0,
+        totalPages: storage?.length / 4 ?? 0,
       });
       // rating's pagination count
       const firstSliceValue = page * 4;
       const secondSliceValue = (page + 1) * 4;
-      setStorage(parseStorage?.slice(firstSliceValue, secondSliceValue));
+      setMovieStorage(storage?.slice(firstSliceValue, secondSliceValue));
 
       setIsLoading(false);
     }
     //eslint-disable-next-line
-  }, [page, pathName, stringStorage]);
+  }, [page, pathName, storage]);
 
   // remove/add page scroll
   useEffect(() => {
@@ -80,9 +86,10 @@ export default function MoviesLis() {
 
   useEffect(() => {
     if (movies === undefined && !isLoading) {
-      (storage?.length < 1 || storage === undefined) && router.push("/empty");
+      (movieStorage?.length < 1 || movieStorage === undefined) &&
+        router.push("/empty");
     }
-  }, [movies, isLoading, storage, router]);
+  }, [movies, isLoading, movieStorage, router]);
 
   if (isLoading && movies) {
     return (
@@ -111,7 +118,7 @@ export default function MoviesLis() {
                 voteCount={item?.vote_count}
               />
             ))
-          : storage?.map((item) => (
+          : movieStorage?.map((item) => (
               <MovieCard
                 setRateModalProps={setRateModalProps}
                 isOpenRateModal={isOpenRateModal}

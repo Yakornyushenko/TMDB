@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import block from "bem-cn";
 import Image from "next/image";
 import noImage from "../../../public/icons/noImage.png";
@@ -28,9 +28,18 @@ const MovieCard: FC<Movies.MovieCard> = ({
   budget,
   revenue,
 }) => {
-  const stringStorage = localStorage.getItem("movies"),
-    parseStorage = JSON.parse(stringStorage),
-    checkRate = parseStorage?.find((item) => item.id === id);
+  const [storage, setStorage] = useState();
+  const [checkRate, setCheckRate] = useState();
+  useEffect(() => {
+    const stringStorage = localStorage.getItem("movies");
+    const parseStorage = JSON.parse(stringStorage);
+    setStorage(parseStorage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localStorage.getItem("movies")]);
+
+  useEffect(() => {
+    setCheckRate(storage?.find((item) => item.id === id));
+  }, [storage]);
 
   const rateIconHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
