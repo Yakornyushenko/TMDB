@@ -7,14 +7,15 @@ import { BaseComponentProps } from "../../types/base";
 import { ButtonType } from "./buttonType";
 import Image from "next/image";
 import block from "bem-cn";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 interface Props extends BaseComponentProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: ButtonType;
   htmlType?: "submit" | "reset" | "button";
   disabled?: boolean;
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
+  startIcon?: string | StaticImport;
+  endIcon?: string | StaticImport;
   contentStart?: boolean;
   purpleText?: boolean;
   children?: React.ReactNode;
