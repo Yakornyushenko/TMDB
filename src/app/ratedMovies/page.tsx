@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <section className={styles.ratedMovies}>
       <div className={styles.body}>{/*<Input />*/}</div>
-      {typeof window !== "undefined" && <MoviesList />}
+      <MoviesList />
     </section>
   );
 }
