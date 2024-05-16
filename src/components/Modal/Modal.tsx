@@ -9,7 +9,7 @@ const b = block("modal");
 export interface BaseModalProps {
   modalTitle: string;
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const Modal: FC<BaseModalProps> = ({

@@ -1,3 +1,4 @@
+"use client";
 import React, { FC, useEffect, useState } from "react";
 import { Button } from "@/src/components/Button/Button";
 import { ButtonType } from "@/src/components/Button/buttonType";
@@ -22,9 +23,9 @@ export const RateModalForm: FC<RateModalProps> = (props) => {
 
   useEffect(() => {
     const storageRatedMovies = JSON.parse(localStorage.getItem("movies"));
-    const rateMovie = storageRatedMovies?.find((item) => item.id === id);
-    setRate(rateMovie);
-  }, []);
+    storageRatedMovies?.find((item) => item.id === id);
+    setRate(storageRatedMovies);
+  }, [id]);
 
   const [selected, setSelected] = useState<number | undefined>(undefined);
   const [rate, setRate] = useState<number | undefined>(undefined);
