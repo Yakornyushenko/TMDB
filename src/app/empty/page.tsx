@@ -15,7 +15,6 @@ const Page = () => {
   return (
     <div className={b()}>
       <Image src={noRateMovies} alt="No rated Films" />
-      {/* eslint-disable-next-line react/no-unescaped-entities */}
       <p className={b("title")}>You haven't rated any films yet</p>
       <Button
         onClick={() => router.push("/")}

@@ -10,13 +10,14 @@ import block from "bem-cn";
 
 interface Props extends BaseComponentProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  type?: string;
+  type?: ButtonType;
   htmlType?: "submit" | "reset" | "button";
   disabled?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   contentStart?: boolean;
   purpleText?: boolean;
+  children?: React.ReactNode;
 }
 
 const b = block("button");
