@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, SetStateAction } from "react";
+import React, { FC, SetStateAction, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Image from "next/image";
 import block from "bem-cn";
@@ -30,6 +30,11 @@ export const Pagination: FC<Props> = ({
   totalPages,
   setPage,
 }) => {
+  const [currentPage, setCurrentPage] = useState<string>();
+  useEffect(() => {
+    setCurrentPage(localStorage.getItem("currentPage"));
+  }, []);
+
   if (totalPages <= 1) return;
 
   return (
@@ -38,11 +43,13 @@ export const Pagination: FC<Props> = ({
       nextLabel={<Image alt="Next page" src={nextPaginationArrow} />}
       onPageChange={(selectedItem: { selected: number }) => {
         if (isLoading) return;
+        const curPage = selectedItem.selected;
+        localStorage.setItem("currentPage", String(curPage));
         setPage(selectedItem.selected);
       }}
       pageRangeDisplayed={3}
       marginPagesDisplayed={0}
-      forcePage={page}
+      forcePage={Number(currentPage) || page}
       breakLabel={0}
       pageCount={totalPages}
       previousLabel={<Image alt="Previous page" src={prevPaginationArrow} />}

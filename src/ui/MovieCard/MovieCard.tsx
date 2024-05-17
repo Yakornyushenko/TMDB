@@ -74,7 +74,7 @@ const MovieCard: FC<Movies.MovieCard> = ({
     };
     return summary?.toLocaleString("en-US", options);
   };
-  console.log("checkRate", checkRate);
+
   return (
     <Link
       key={id}

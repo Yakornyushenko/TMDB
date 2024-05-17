@@ -36,24 +36,26 @@ export default function MoviesLis() {
   const [paginationInfo, setPaginationInfo] = useState<Movies.PaginationInfo>(
     initialPaginationInfo
   );
+  console.log("paginationInfo", paginationInfo);
   // MANAGERS
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    const currentPage = localStorage.getItem("currentPage");
     const stringStorage = localStorage?.getItem("movies");
     const parseStorage = JSON.parse(stringStorage);
-
+    console.log("currentPage", currentPage);
     setIsLoading(true);
     fetchGenres().then((data) => setGenres(data));
 
     if (pathName === IS_HOME_PAGE) {
-      fetchMovies(page)
+      fetchMovies(Number(currentPage) || page || 1)
         .then((data) => {
           setMovies(data.results);
 
           setPaginationInfo({
             totalResults: data?.total_results ?? 0,
-            page: data.page ?? 0,
+            page: currentPage ? Number(currentPage) : data.page,
             totalPages: data?.total_pages ?? 0,
           });
         })
@@ -61,7 +63,7 @@ export default function MoviesLis() {
     } else if (pathName === IS_RATED_PAGE) {
       setPaginationInfo({
         totalResults: parseStorage?.length ?? 0,
-        page: page,
+        page: currentPage ? Number(currentPage) : page,
         totalPages: parseStorage?.length >= 4 ? parseStorage?.length / 4 : 0,
       });
       // rating's pagination count
@@ -94,7 +96,6 @@ export default function MoviesLis() {
       </div>
     );
   }
-
   return (
     <>
       <div className={b()}>
