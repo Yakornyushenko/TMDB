@@ -1,12 +1,10 @@
-import MoviesList from "@/src/ui/MoviesList/MoviesList";
-// import { Input } from "@/src/components/Input/Input";
 import styles from "./page.module.scss";
+import RatedMoviePage from "@/src/app/ratedMovies/components";
 
 export default function Page() {
   return (
     <section className={styles.ratedMovies}>
-      <div className={styles.body}>{/*<Input />*/}</div>
-      <MoviesList />
+      <RatedMoviePage />
     </section>
   );
 }

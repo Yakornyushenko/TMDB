@@ -1,7 +1,7 @@
 import block from "bem-cn";
 import Filter from "@/src/ui/Filter/Filter";
-import MoviesList from "@/src/ui/MoviesList/MoviesList";
 import "./page.scss";
+import { MoviesList } from "@/src/ui/MoviesList/MoviesList";
 
 const b = block("home");
 

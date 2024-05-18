@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { fetchGenres, fetchMovies } from "@/src/api/api";
 import { Movies } from "@/src/types/base";
 import block from "bem-cn";
@@ -18,8 +18,10 @@ import { IS_HOME_PAGE, IS_RATED_PAGE } from "@/src/constants";
 import { selectedGenres } from "@/src/lib/utils";
 
 const b = block("moviesList");
-
-export default function MoviesLis() {
+interface Props {
+  searchValue?: string;
+}
+export const MoviesList: FC<Props> = ({ searchValue }) => {
   //Routing
   const pathName = usePathname();
   const router = useRouter();
@@ -30,13 +32,11 @@ export default function MoviesLis() {
   const [movies, setMovies] = useState<Movies.Movie[]>();
   const [genres, setGenres] = useState<Movies.Genre[]>();
   const [movieStorage, setMovieStorage] = useState<any>();
-
   // pagination
   const [page, setPage] = useState<number>(initialPaginationInfo.page);
   const [paginationInfo, setPaginationInfo] = useState<Movies.PaginationInfo>(
     initialPaginationInfo
   );
-  console.log("paginationInfo", paginationInfo);
   // MANAGERS
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -44,7 +44,6 @@ export default function MoviesLis() {
     const currentPage = localStorage.getItem("currentPage");
     const stringStorage = localStorage?.getItem("movies");
     const parseStorage = JSON.parse(stringStorage);
-    console.log("currentPage", currentPage);
     setIsLoading(true);
     fetchGenres().then((data) => setGenres(data));
 
@@ -61,6 +60,26 @@ export default function MoviesLis() {
         })
         .finally(() => setIsLoading(false));
     } else if (pathName === IS_RATED_PAGE) {
+      if (searchValue?.length > 0) {
+        const foundRatedMovie = parseStorage?.find(
+          (item) => item.title === searchValue
+        );
+
+        setPaginationInfo({
+          totalResults: foundRatedMovie?.length ?? 0,
+          page: foundRatedMovie ? Number(currentPage) : page,
+          totalPages:
+            foundRatedMovie?.length >= 4 ? foundRatedMovie?.length / 4 : 0,
+        });
+
+        if (foundRatedMovie) {
+          setMovieStorage([foundRatedMovie]);
+        } else {
+          setMovieStorage(undefined);
+        }
+        setIsLoading(false);
+        return;
+      }
       setPaginationInfo({
         totalResults: parseStorage?.length ?? 0,
         page: currentPage ? Number(currentPage) : page,
@@ -74,7 +93,7 @@ export default function MoviesLis() {
       setIsLoading(false);
     }
     //eslint-disable-next-line
-  }, [page, pathName]);
+  }, [page, pathName, searchValue]);
 
   // remove/add page scroll
   useEffect(() => {
@@ -83,8 +102,11 @@ export default function MoviesLis() {
   }, [isOpenRateModal]);
 
   useEffect(() => {
+    console.log("movieStorage", movieStorage);
+    console.log("movies", movies);
+    console.log("!isLoading", !isLoading);
     if (movies === undefined && !isLoading) {
-      (movieStorage?.length < 1 || movieStorage === undefined) &&
+      if (movieStorage === undefined || movieStorage?.length < 1)
         router.push("/empty");
     }
   }, [movies, isLoading, router, movieStorage]);
@@ -108,10 +130,10 @@ export default function MoviesLis() {
                 genres={selectedGenres(item?.genre_ids, genres)}
                 image={item?.poster_path}
                 rating={item?.vote_average}
-                title={item.title}
+                title={item?.title}
                 release={item?.release_date}
                 key={item?.id}
-                id={item.id}
+                id={item?.id}
                 voteCount={item?.vote_count}
               />
             ))
@@ -123,7 +145,7 @@ export default function MoviesLis() {
                 genres={item?.genre_ids}
                 image={item?.backdrop_path}
                 rating={item?.vote_average}
-                title={item.title}
+                title={item?.title}
                 release={item?.release_date}
                 key={item?.id}
                 id={item?.id}
@@ -147,4 +169,4 @@ export default function MoviesLis() {
       )}
     </>
   );
-}
+};

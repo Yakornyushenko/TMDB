@@ -1,117 +1,157 @@
-// "use client";
-//
-// import React, {
-//   ChangeEventHandler,
-//   FC,
-//   FocusEventHandler,
-//   KeyboardEventHandler,
-//   useState,
-// } from "react";
-// import "./Input.scss";
-//
-// import { BaseComponentProps } from "../../types/base";
-// import { Button } from "@/src/components/Button/Button";
-// import { ButtonType } from "@/src/components/Button/buttonType";
-// import block from "bem-cn";
-//
-// interface Props extends BaseComponentProps {
-//   value?: number;
-//   onChange?: ChangeEventHandler<HTMLInputElement>;
-//   onFocus?: FocusEventHandler<HTMLInputElement>;
-//   onBlur?: FocusEventHandler<HTMLInputElement>;
-//   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
-//   onPressEnter?: KeyboardEventHandler<HTMLInputElement>;
-//   error?: string;
-//   placeholder?: string;
-//   disabled?: boolean;
-//   pattern?: string;
-//   type?: string;
-//   name?: string;
-//   id?: string;
-//   endIcon?: React.ReactNode;
-//   startIcon?: React.ReactNode;
-// }
-//
-// const b = block("input");
-//
-// export const Input: FC<Props> = ({
-//   className = "",
-//   value,
-//   onChange = (event: React.ChangeEvent<HTMLInputElement>) => {},
-//   onFocus = (event: React.FocusEvent<HTMLInputElement>) => {},
-//   onBlur = (event: React.FocusEvent<HTMLInputElement>) => {},
-//   onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {},
-//   onPressEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {},
-//   error = "",
-//   placeholder,
-//   disabled = false,
-//   pattern,
-//   type = "number",
-//   name,
-//   id,
-//   endIcon,
-//   startIcon,
-// }) => {
-//   let [currentValue, setCurrentValue] = useState<string | number>("");
-//
-//   const handlerFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-//     event.preventDefault();
-//     onFocus(event);
-//   };
-//
-//   const handlerBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-//     event.preventDefault();
-//     onBlur(event);
-//   };
-//
-//   const handlerKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-//     if (["Enter", "NumpadEnter"].includes(event.code)) {
-//       onPressEnter(event);
-//     }
-//     onKeyDown(event);
-//   };
-//
-//   const handlerBtn = (increment?: boolean) => {
-//     if (increment) setCurrentValue((prevState) => ++prevState);
-//     else setCurrentValue((prevState) => --prevState);
-//   };
-//
-//   return (
-//     <div className={b("wrapper")}>
-//       <input
-//         className={`${b({ error })} ${className}`.trim()}
-//         value={currentValue}
-//         onChange={(e) => setCurrentValue(e.target.value as number)}
-//         pattern={pattern}
-//         onFocus={handlerFocus}
-//         onBlur={handlerBlur}
-//         onKeyDown={handlerKeyDown}
-//         placeholder={placeholder}
-//         disabled={disabled}
-//         type={type}
-//         id={id}
-//         name={name}
-//       ></input>
-//       <div className={b("icons")}>
-//         <div className={b("icon")}>
-//           {startIcon && (
-//             <Button
-//               onClick={() => handlerBtn(true)}
-//               type={ButtonType.Default}
-//               startIcon={startIcon}
-//             />
-//           )}
-//         </div>
-//         <div className={b("icon")}>
-//           {endIcon && (
-//             <Button
-//               onClick={() => handlerBtn()}
-//               type={ButtonType.Default}
-//               endIcon={endIcon}
-//             />
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+"use client";
+
+import React, {
+  ChangeEventHandler,
+  Dispatch,
+  FC,
+  FocusEventHandler,
+  KeyboardEventHandler,
+  SetStateAction,
+  useState,
+} from "react";
+import "./Input.scss";
+
+import { BaseComponentProps } from "../../types/base";
+import { Button } from "@/src/components/Button/Button";
+import { ButtonType } from "@/src/components/Button/buttonType";
+import block from "bem-cn";
+import Image from "next/image";
+
+interface Props extends BaseComponentProps {
+  value?: number;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+  onPressEnter?: KeyboardEventHandler<HTMLInputElement>;
+  error?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  pattern?: string;
+  type?: string;
+  name?: string;
+  id?: string;
+  startHandler?: React.ReactNode;
+  endHandler?: React.ReactNode | boolean;
+  endHandlerText?: string;
+  setValue?: Dispatch<SetStateAction<string>>;
+}
+
+const b = block("input");
+
+export const Input: FC<Props> = ({
+  value,
+  onChange = () => {},
+  onFocus = (e: React.FocusEvent<HTMLInputElement>) => {},
+  onBlur = (e: React.FocusEvent<HTMLInputElement>) => {},
+  placeholder = "Search movie title",
+  disabled = false,
+  pattern,
+  type = "number",
+  name,
+  id,
+  startHandler,
+  endHandler,
+  endHandlerText,
+  setValue,
+}) => {
+  let [currentValue, setCurrentValue] = useState<string | number>("");
+
+  const handlerFocus: FocusEventHandler<HTMLInputElement> = (event) => {
+    event.preventDefault();
+    onFocus(event);
+  };
+
+  const handlerBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    onBlur(event);
+  };
+
+  // const handlerKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (["Enter", "NumpadEnter"].includes(event.code)) {
+  //     onPressEnter(event);
+  //   }
+  //   onKeyDown(event);
+  // };
+
+  const handlerNumberBtn = (increment?: boolean) => {
+    if (increment) setCurrentValue((prevState) => ++prevState);
+    else setCurrentValue((prevState) => --prevState);
+  };
+
+  if (type === "number") {
+    return (
+      <div className={b("wrapper")}>
+        <input
+          className={b()}
+          value={currentValue}
+          onChange={(e) => setCurrentValue(e.target.value as number)}
+          pattern={pattern}
+          onFocus={handlerFocus}
+          onBlur={handlerBlur}
+          placeholder={placeholder}
+          disabled={disabled}
+          type={type}
+          id={id}
+          name={name}
+        />
+        <div className={b("icons")}>
+          <div className={b("icon")}>
+            {startHandler && (
+              <Button
+                onClick={() => handlerNumberBtn(true)}
+                type={ButtonType.Default}
+                startIcon={startHandler}
+              />
+            )}
+          </div>
+          <div className={b("icon")}>
+            {endHandler && (
+              <Button
+                onClick={() => handlerNumberBtn()}
+                type={ButtonType.Default}
+                endIcon={endHandler}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "text") {
+    return (
+      <div className={b("wrapper")}>
+        {startHandler && (
+          <Image
+            className={b("start-handler", { text: true })}
+            src={startHandler}
+            alt="Search movie"
+          />
+        )}
+        <input
+          className={b()}
+          value={currentValue}
+          onChange={(e) => setCurrentValue(e.target.value)}
+          pattern={pattern}
+          onFocus={handlerFocus}
+          onBlur={handlerBlur}
+          placeholder={placeholder}
+          disabled={disabled}
+          type={type}
+          id={id}
+          name={name}
+        />
+        {endHandler && endHandlerText && (
+          <Button
+            className={b("button-text-type")}
+            onClick={() => setValue && setValue(currentValue)}
+            type={ButtonType.Fulfilled}
+          >
+            {endHandlerText}
+          </Button>
+        )}
+      </div>
+    );
+  }
+};
