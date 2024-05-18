@@ -34,9 +34,10 @@ export const Button: FC<Props> = ({
   children,
   contentStart,
   purpleText,
+  className,
 }) => (
   <button
-    className={`${b({ [type]: true, flexStart: contentStart, purpleText: purpleText })}`}
+    className={`${b({ [type]: true, flexStart: contentStart, purpleText: purpleText })} ${className}`.trim()}
     onClick={onClick}
     disabled={disabled}
     style={style}
