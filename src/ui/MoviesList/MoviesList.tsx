@@ -125,7 +125,6 @@ export const MoviesList: FC<Filter> = ({
   }, [isOpenRateModal]);
 
   useEffect(() => {
-    console.log("movies", movies);
     if (movies === undefined && !isLoading) {
       if (movieStorage === undefined || movieStorage?.length < 1)
         router.push("/empty");
