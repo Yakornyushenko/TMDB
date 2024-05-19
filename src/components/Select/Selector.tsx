@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { Dispatch, FC, SetStateAction } from "react";
 import Select, { OptionProps } from "react-select";
 import "./Selector.scss";
 import { BaseComponentProps } from "@/src/types/base";
@@ -6,7 +6,7 @@ import { BaseComponentProps } from "@/src/types/base";
 interface CustomSelectProps extends BaseComponentProps {
   options: OptionProps[];
   value: OptionProps;
-  onChange: (value: OptionProps) => void;
+  onChange: Dispatch<SetStateAction<OptionProps>>;
   placeholder: string;
   ref?: any;
   onMenuScrollToBottom?: (event: WheelEvent | TouchEvent) => void;
