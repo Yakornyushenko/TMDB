@@ -42,7 +42,7 @@ const Filter: FC<Props> = ({
 }) => {
   const [genresOptions, setGenresOptions] = useState<OptionProps[]>(null);
   const [dateOptions, setDateOptions] = useState<OptionProps[]>(
-    generateData(50, 1850)
+    generateData(50, 1900)
   );
 
   useEffect(() => {
@@ -50,6 +50,17 @@ const Filter: FC<Props> = ({
       setGenresOptions(createGenresOptions(data));
     });
   }, []);
+
+  useEffect(() => {
+    const filters = JSON.stringify({
+      selectedFrom: selectedFrom,
+      selectedTo: selectedTo,
+      selectedSort: selectedSort,
+      selectedDate: selectedDate,
+      selectedGenre: selectedGenre,
+    });
+    localStorage.setItem("filters", filters);
+  }, [selectedDate, selectedGenre, selectedSort, selectedTo, selectedFrom]);
 
   const resetFilters = () => {
     setSelectedFrom("");
@@ -60,10 +71,10 @@ const Filter: FC<Props> = ({
   };
 
   const onMenuScrollBottom = () => {
-    setDateOptions(generateData(175, 1850));
+    setDateOptions(generateData(125, 1900));
   };
   const onMenuScrollToTop = () => {
-    setDateOptions(generateData(50, 1850));
+    setDateOptions(generateData(50, 1900));
   };
 
   return (
