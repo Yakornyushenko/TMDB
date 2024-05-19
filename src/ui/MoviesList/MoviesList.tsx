@@ -10,6 +10,7 @@ import {
 } from "@/src/ui/Pagination/Pagination";
 import Image from "next/image";
 import spinner from "../../../public/icons/loadings/spinner.svg";
+import emptyFilters from "../../../public/icons/emptyFilters.svg";
 import "./MoviesList.scss";
 import { RateModal, RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
 import { usePathname } from "next/navigation";
@@ -133,8 +134,18 @@ export const MoviesList: FC<Filter> = ({
 
   if (isLoading && movies) {
     return (
-      <div className={b("spinner")}>
-        <Image src={spinner} alt={"Spinner"} />
+      <div className={b("loader")}>
+        <Image src={spinner} alt="Spinner" />
+      </div>
+    );
+  }
+  if (movies?.length === 0) {
+    return (
+      <div className={b("loader")}>
+        <Image src={emptyFilters} alt="No such movies" />
+        <p className={b("empty-text")}>
+          We don't have such movies, look for another one
+        </p>
       </div>
     );
   }

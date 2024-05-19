@@ -9,13 +9,23 @@ import { sortOptions } from "@/src/constants";
 const b = block("homePage");
 
 const HomePage = () => {
-  const [selectedGenre, setSelectedGenre] = useState<OptionProps>(null);
-  const [selectedDate, setSelectedDate] = useState<OptionProps>(null);
-  const [selectedSort, setSelectedSort] = useState<OptionProps>(
-    sortOptions[1] || null
+  const filters = JSON.parse(localStorage.getItem("filters"));
+
+  const [selectedGenre, setSelectedGenre] = useState<OptionProps>(
+    filters.selectedGenre || null
   );
-  const [selectedTo, setSelectedTo] = useState<string | number>("");
-  const [selectedFrom, setSelectedFrom] = useState<string | number>("");
+  const [selectedDate, setSelectedDate] = useState<OptionProps>(
+    filters.selectedDate || null
+  );
+  const [selectedSort, setSelectedSort] = useState<OptionProps>(
+    filters.selectedSort || sortOptions[1] || null
+  );
+  const [selectedTo, setSelectedTo] = useState<string | number>(
+    filters.selectedTo || ""
+  );
+  const [selectedFrom, setSelectedFrom] = useState<string | number>(
+    filters.selectedFrom || ""
+  );
   return (
     <>
       <h1 className={b()}>Movies</h1>

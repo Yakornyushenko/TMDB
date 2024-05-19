@@ -4,10 +4,19 @@
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 
-  &__spinner {
+  &__loader {
     display: flex;
+    gap: 20px;
     justify-content: center;
+    align-items: center;
     height: 64vh;
+    flex-direction: column;
+  }
+
+  &__empty-text {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24.2px;
   }
 
   &__pagination {
