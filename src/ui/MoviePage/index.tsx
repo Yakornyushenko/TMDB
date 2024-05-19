@@ -4,13 +4,13 @@ import { Breadcrumbs } from "@/src/components/Breadcrumbs/Breadcrumbs";
 import SideBar from "@/src/ui/SideBar/SideBar";
 import { fetchFilm, fetchMovieTrailer } from "@/src/api/api";
 import block from "bem-cn";
-import "./Movie.scss";
+import "./style.scss";
 import MovieCard from "@/src/ui/MovieCard/MovieCard";
 import { RateModal, RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
 import Image from "next/image";
 import spinner from "@/public/icons/loadings/spinner.svg";
 import { Movies } from "@/src/types/base";
-import MovieContent from "@/src/ui/Movie/MovieContent/MovieContent";
+import MovieContent from "@/src/ui/MoviePage/MovieContent/MovieContent";
 
 const b = block("movie");
 

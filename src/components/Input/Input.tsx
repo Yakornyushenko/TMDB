@@ -1,5 +1,4 @@
 "use client";
-
 import React, {
   ChangeEventHandler,
   Dispatch,
@@ -40,15 +39,12 @@ interface Props extends BaseComponentProps {
 const b = block("input");
 
 export const Input: FC<Props> = ({
-  value,
-  onChange = () => {},
   onFocus = (e: React.FocusEvent<HTMLInputElement>) => {},
   onBlur = (e: React.FocusEvent<HTMLInputElement>) => {},
   placeholder = "Search movie title",
   disabled = false,
   pattern,
   type = "number",
-  name,
   id,
   startHandler,
   endHandler,
@@ -56,6 +52,19 @@ export const Input: FC<Props> = ({
   setValue,
 }) => {
   let [currentValue, setCurrentValue] = useState<string | number>("");
+  let [currentNumValue, setCurrentNumValue] = useState<number | string>("");
+
+  const incrementValue = () => {
+    if (currentNumValue < 10) {
+      setCurrentNumValue((prevValue) => ++prevValue as number);
+    }
+  };
+
+  const decrementValue = () => {
+    if (currentNumValue > 0) {
+      setCurrentNumValue((prevValue) => --prevValue as number);
+    }
+  };
 
   const handlerFocus: FocusEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
@@ -74,32 +83,29 @@ export const Input: FC<Props> = ({
   //   onKeyDown(event);
   // };
 
-  const handlerNumberBtn = (increment?: boolean) => {
-    if (increment) setCurrentValue((prevState) => ++prevState);
-    else setCurrentValue((prevState) => --prevState);
-  };
-
+  console.log("currentNumValue", currentNumValue);
   if (type === "number") {
     return (
       <div className={b("wrapper")}>
         <input
           className={b()}
-          value={currentValue}
-          onChange={(e) => setCurrentValue(e.target.value as number)}
+          value={currentNumValue}
+          onChange={(e) => setCurrentNumValue(e.target.value as number)}
           pattern={pattern}
           onFocus={handlerFocus}
           onBlur={handlerBlur}
           placeholder={placeholder}
           disabled={disabled}
-          type={type}
+          type="number"
+          min={0}
+          max={10}
           id={id}
-          name={name}
         />
         <div className={b("icons")}>
           <div className={b("icon")}>
             {startHandler && (
               <Button
-                onClick={() => handlerNumberBtn(true)}
+                onClick={() => incrementValue()}
                 type={ButtonType.Default}
                 startIcon={startHandler}
               />
@@ -108,7 +114,7 @@ export const Input: FC<Props> = ({
           <div className={b("icon")}>
             {endHandler && (
               <Button
-                onClick={() => handlerNumberBtn()}
+                onClick={() => decrementValue()}
                 type={ButtonType.Default}
                 endIcon={endHandler}
               />
@@ -130,7 +136,7 @@ export const Input: FC<Props> = ({
           />
         )}
         <input
-          className={b()}
+          className={b({ text: true })}
           value={currentValue}
           onChange={(e) => setCurrentValue(e.target.value)}
           pattern={pattern}
@@ -138,9 +144,8 @@ export const Input: FC<Props> = ({
           onBlur={handlerBlur}
           placeholder={placeholder}
           disabled={disabled}
-          type={type}
+          type="text"
           id={id}
-          name={name}
         />
         {endHandler && endHandlerText && (
           <Button
