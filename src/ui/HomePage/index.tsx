@@ -15,19 +15,19 @@ const HomePage = () => {
   }, []);
 
   const [selectedGenre, setSelectedGenre] = useState<OptionProps>(
-    filters.selectedGenre || null
+    filters?.selectedGenre || null
   );
   const [selectedDate, setSelectedDate] = useState<OptionProps>(
-    filters.selectedDate || null
+    filters?.selectedDate || null
   );
   const [selectedSort, setSelectedSort] = useState<OptionProps>(
-    filters.selectedSort || sortOptions[1] || null
+    filters?.selectedSort || sortOptions[1] || null
   );
   const [selectedTo, setSelectedTo] = useState<string | number>(
-    filters.selectedTo || ""
+    filters?.selectedTo || ""
   );
   const [selectedFrom, setSelectedFrom] = useState<string | number>(
-    filters.selectedFrom || ""
+    filters?.selectedFrom || ""
   );
   return (
     <>
