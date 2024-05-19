@@ -1,7 +1,7 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
 import { fetchGenres, fetchMovies } from "@/src/api/api";
-import { Movies } from "@/src/types/base";
+import { Movies, OptionProps } from "@/src/types/base";
 import block from "bem-cn";
 import MovieCard from "@/src/ui/MovieCard/MovieCard";
 import {
@@ -18,10 +18,23 @@ import { IS_HOME_PAGE, IS_RATED_PAGE, SortBy } from "@/src/constants";
 import { selectedGenres } from "@/src/lib/utils";
 
 const b = block("moviesList");
-interface Props {
+export interface Filter {
+  selectedDate?: OptionProps;
+  selectedGenre?: OptionProps;
+  selectedSort?: OptionProps;
+  selectedTo?: string | number;
+  selectedFrom?: string | number;
+
   searchValue?: string;
 }
-export const MoviesList: FC<Props> = ({ searchValue }) => {
+export const MoviesList: FC<Filter> = ({
+  searchValue,
+  selectedFrom,
+  selectedTo,
+  selectedSort,
+  selectedDate,
+  selectedGenre,
+}) => {
   //Routing
   const pathName = usePathname();
   const router = useRouter();
@@ -48,7 +61,16 @@ export const MoviesList: FC<Props> = ({ searchValue }) => {
     fetchGenres().then((data) => setGenres(data));
 
     if (pathName === IS_HOME_PAGE) {
-      fetchMovies(Number(currentPage) || page || 1, SortBy.desc)
+      fetchMovies(
+        Number(currentPage) || page || 1,
+        selectedDate?.value as number,
+        selectedSort?.value as string,
+        selectedGenre?.value as number,
+        selectedTo as number,
+        selectedFrom as number,
+
+        SortBy.desc
+      )
         .then((data) => {
           setMovies(data.results);
 
@@ -93,7 +115,7 @@ export const MoviesList: FC<Props> = ({ searchValue }) => {
       setIsLoading(false);
     }
     //eslint-disable-next-line
-  }, [page, pathName, searchValue]);
+  }, [selectedSort, selectedDate, selectedGenre, page, pathName, searchValue]);
 
   // remove/add page scroll
   useEffect(() => {

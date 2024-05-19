@@ -1,6 +1,5 @@
 "use client";
 import React, {
-  ChangeEventHandler,
   Dispatch,
   FC,
   FocusEventHandler,
@@ -17,8 +16,7 @@ import block from "bem-cn";
 import Image from "next/image";
 
 interface Props extends BaseComponentProps {
-  value?: number;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  value: string | number;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
@@ -33,12 +31,13 @@ interface Props extends BaseComponentProps {
   startHandler?: React.ReactNode;
   endHandler?: React.ReactNode | boolean;
   endHandlerText?: string;
-  setValue?: Dispatch<SetStateAction<string>>;
+  setValue: Dispatch<SetStateAction<string | number>>;
 }
 
 const b = block("input");
 
 export const Input: FC<Props> = ({
+  value,
   onFocus = (e: React.FocusEvent<HTMLInputElement>) => {},
   onBlur = (e: React.FocusEvent<HTMLInputElement>) => {},
   placeholder = "Search movie title",
@@ -51,18 +50,15 @@ export const Input: FC<Props> = ({
   endHandlerText,
   setValue,
 }) => {
-  let [currentValue, setCurrentValue] = useState<string | number>("");
-  let [currentNumValue, setCurrentNumValue] = useState<number | string>("");
-
   const incrementValue = () => {
-    if (currentNumValue < 10) {
-      setCurrentNumValue((prevValue) => ++prevValue as number);
+    if (value < 10) {
+      setValue((prevValue) => ++prevValue as number);
     }
   };
 
   const decrementValue = () => {
-    if (currentNumValue > 0) {
-      setCurrentNumValue((prevValue) => --prevValue as number);
+    if (value > 0) {
+      setValue((prevValue) => --prevValue as number);
     }
   };
 
@@ -76,21 +72,15 @@ export const Input: FC<Props> = ({
     onBlur(event);
   };
 
-  // const handlerKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (["Enter", "NumpadEnter"].includes(event.code)) {
-  //     onPressEnter(event);
-  //   }
-  //   onKeyDown(event);
-  // };
+  let [currentValue, setCurrentValue] = useState<string | number>("");
 
-  console.log("currentNumValue", currentNumValue);
   if (type === "number") {
     return (
       <div className={b("wrapper")}>
         <input
           className={b()}
-          value={currentNumValue}
-          onChange={(e) => setCurrentNumValue(e.target.value as number)}
+          value={value}
+          onChange={(e) => setValue && setValue(e.target.value as number)}
           pattern={pattern}
           onFocus={handlerFocus}
           onBlur={handlerBlur}
