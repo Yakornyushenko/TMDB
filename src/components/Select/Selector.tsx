@@ -1,25 +1,49 @@
-"use client";
 import React, { FC } from "react";
-import Select from "react-select/base";
+import Select, { OptionProps } from "react-select";
+import "./Selector.scss";
+import { BaseComponentProps } from "@/src/types/base";
 
-export interface Props {
-  placeholder: "Выбрать";
-  loadingMessage: () => "Загрузка...";
-  components: {};
+interface CustomSelectProps extends BaseComponentProps {
+  options: OptionProps[];
+  value: OptionProps;
+  onChange: (value: OptionProps) => void;
+  placeholder: string;
+  ref?: any;
+  onMenuScrollToBottom?: (event: WheelEvent | TouchEvent) => void;
+  onMenuScrollToTop?: (event: WheelEvent | TouchEvent) => void;
 }
-export const Selector: FC<Props> = ({}) => {
+
+const CustomSelect: FC<CustomSelectProps> = ({
+  options,
+  onChange,
+  placeholder,
+  value,
+  onMenuScrollToBottom,
+  onMenuScrollToTop,
+  className,
+}) => {
   return (
-    <div>
-      {/*<Select*/}
-      {/*  inputValue={}*/}
-      {/*  onChange={}*/}
-      {/*  onInputChange={}*/}
-      {/*  onMenuClose={}*/}
-      {/*  onMenuOpen={}*/}
-      {/*  value={}*/}
-      {/*></Select>*/}
+    <div className="customSelect">
+      <Select
+        className={className}
+        onMenuScrollToTop={onMenuScrollToTop}
+        onMenuScrollToBottom={onMenuScrollToBottom}
+        onChange={onChange}
+        value={value}
+        options={options}
+        placeholder={placeholder}
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: 8,
+          colors: {
+            ...theme.colors,
+            primary25: "rgba(253,0,243,0.37)",
+            primary: "rgba(253,0,243,0.37)",
+          },
+        })}
+      />
     </div>
   );
 };
 
-export default Selector;
+export default CustomSelect;

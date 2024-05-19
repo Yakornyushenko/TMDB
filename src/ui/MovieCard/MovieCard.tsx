@@ -72,7 +72,7 @@ const MovieCard: FC<Movies.MovieCard> = ({
       style: "currency",
       currency: "USD",
     };
-    return summary?.toLocaleString("en-US", options);
+    return summary?.toLocaleString("en-US", options).slice(0, -3);
   };
 
   return (

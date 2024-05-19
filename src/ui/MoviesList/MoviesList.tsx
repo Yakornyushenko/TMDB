@@ -14,7 +14,7 @@ import "./MoviesList.scss";
 import { RateModal, RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { IS_HOME_PAGE, IS_RATED_PAGE } from "@/src/constants";
+import { IS_HOME_PAGE, IS_RATED_PAGE, SortBy } from "@/src/constants";
 import { selectedGenres } from "@/src/lib/utils";
 
 const b = block("moviesList");
@@ -48,7 +48,7 @@ export const MoviesList: FC<Props> = ({ searchValue }) => {
     fetchGenres().then((data) => setGenres(data));
 
     if (pathName === IS_HOME_PAGE) {
-      fetchMovies(Number(currentPage) || page || 1)
+      fetchMovies(Number(currentPage) || page || 1, SortBy.desc)
         .then((data) => {
           setMovies(data.results);
 
@@ -102,9 +102,7 @@ export const MoviesList: FC<Props> = ({ searchValue }) => {
   }, [isOpenRateModal]);
 
   useEffect(() => {
-    console.log("movieStorage", movieStorage);
     console.log("movies", movies);
-    console.log("!isLoading", !isLoading);
     if (movies === undefined && !isLoading) {
       if (movieStorage === undefined || movieStorage?.length < 1)
         router.push("/empty");

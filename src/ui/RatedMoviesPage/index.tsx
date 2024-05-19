@@ -1,9 +1,9 @@
 "use client";
 import React, { FC, useState } from "react";
 import { MoviesList } from "@/src/ui/MoviesList/MoviesList";
-import { Header } from "@/src/app/ratedMovies/components/Header";
+import { Header } from "@/src/ui/RatedMoviesPage/Header";
 
-const RatedMoviePage: FC = () => {
+const RatedMoviesPage: FC = () => {
   const [searchValue, setSearchValue] = useState("");
   return (
     <>
@@ -13,4 +13,4 @@ const RatedMoviePage: FC = () => {
   );
 };
 
-export default RatedMoviePage;
+export default RatedMoviesPage;

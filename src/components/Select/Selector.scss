@@ -1,0 +1,21 @@
+@import "../../styles/constants/colors";
+.customSelect {
+  height: 42px;
+
+  .css-qbdosj-Input {
+    padding: 6px 0;
+  }
+  div {
+    color: $grey-500;
+  }
+
+  svg {
+    fill: $grey-500;
+    width: 14px;
+    height: 18px;
+  }
+
+  span {
+    display: none;
+  }
+}

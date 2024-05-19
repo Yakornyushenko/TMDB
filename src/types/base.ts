@@ -4,8 +4,8 @@ export interface BaseComponentProps {
   className?: string;
   style?: CSSProperties;
 }
-export interface Option {
-  value: number;
+export interface OptionProps {
+  value: number | string;
   label: string;
 }
 
