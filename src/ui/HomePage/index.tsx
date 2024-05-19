@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import block from "bem-cn";
 import Filter from "@/src/ui/Filter/Filter";
 import { MoviesList } from "@/src/ui/MoviesList/MoviesList";
@@ -9,7 +9,10 @@ import { sortOptions } from "@/src/constants";
 const b = block("homePage");
 
 const HomePage = () => {
-  const filters = JSON.parse(localStorage.getItem("filters"));
+  const [filters, setFilters] = useState();
+  useEffect(() => {
+    setFilters(JSON.parse(localStorage.getItem("filters")));
+  }, []);
 
   const [selectedGenre, setSelectedGenre] = useState<OptionProps>(
     filters.selectedGenre || null
