@@ -20,3 +20,9 @@ body {
 .isRateModalOpen {
     overflow-y: hidden;
 }
+
+@media (max-width: 426px) {
+    body {
+        display: block;
+    }
+}

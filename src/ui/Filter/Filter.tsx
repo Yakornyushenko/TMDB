@@ -9,7 +9,11 @@ import { ButtonType } from "@/src/components/Button/buttonType";
 import { fetchGenres } from "@/src/api/api";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import CustomSelect from "@/src/components/Select/Selector";
-import { createGenresOptions, generateData } from "@/src/lib/utils";
+import {
+  createGenresOptions,
+  generateData,
+  screenWidth,
+} from "@/src/lib/utils";
 import { OptionProps } from "@/src/types/base";
 import { sortOptions } from "@/src/constants";
 
@@ -123,9 +127,9 @@ const Filter: FC<Props> = ({
           </div>
         </div>
         <Button
+          className={b("reset-btn")}
           onClick={() => resetFilters()}
-          style={{ marginTop: 30 }}
-          type={ButtonType.Outline}
+          type={screenWidth > 725 ? ButtonType.Outline : ButtonType.Fulfilled}
         >
           Reset filters
         </Button>

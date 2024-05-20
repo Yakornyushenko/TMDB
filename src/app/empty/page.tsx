@@ -14,7 +14,7 @@ const Page = () => {
   const router = useRouter();
   return (
     <div className={b()}>
-      <Image src={noRateMovies} alt="No rated Films" />
+      <Image className={b("image")} src={noRateMovies} alt="No rated Films" />
       <p className={b("title")}>You haven't rated any films yet</p>
       <Button
         onClick={() => router.push("/")}

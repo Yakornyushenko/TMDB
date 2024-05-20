@@ -16,7 +16,7 @@ import block from "bem-cn";
 import Image from "next/image";
 
 interface Props extends BaseComponentProps {
-  value: string | number;
+  value?: string | number;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
@@ -49,6 +49,7 @@ export const Input: FC<Props> = ({
   endHandler,
   endHandlerText,
   setValue,
+  className,
 }) => {
   const incrementValue = () => {
     if (value < 10) {
@@ -78,7 +79,7 @@ export const Input: FC<Props> = ({
     return (
       <div className={b("wrapper")}>
         <input
-          className={b()}
+          className={`${b()} ${className}`.trim()}
           value={value}
           onChange={(e) => setValue && setValue(e.target.value as number)}
           pattern={pattern}
@@ -126,7 +127,7 @@ export const Input: FC<Props> = ({
           />
         )}
         <input
-          className={b({ text: true })}
+          className={`${b({ text: true })} ${className}`.trim()}
           value={currentValue}
           onChange={(e) => setCurrentValue(e.target.value)}
           pattern={pattern}

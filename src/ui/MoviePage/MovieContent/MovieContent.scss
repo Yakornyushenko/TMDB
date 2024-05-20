@@ -50,3 +50,20 @@
     line-height: 22.4px;
   }
 }
+
+@media (max-width: 426px) {
+  .movieContent {
+    width: 250px;
+    padding-left: 15px;
+
+    &__video {
+      width: 220px !important;
+      height: 200px !important;
+    }
+
+    &__link-text {
+      margin-bottom: 10px;
+      line-height: 22.4px;
+    }
+  }
+}

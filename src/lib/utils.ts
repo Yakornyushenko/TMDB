@@ -25,3 +25,5 @@ export const createGenresOptions = (options) => {
     };
   });
 };
+
+export const screenWidth = typeof window !== "undefined" && window.screen.width;
