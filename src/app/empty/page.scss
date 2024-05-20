@@ -18,3 +18,18 @@
     width: 122px;
   }
 }
+
+@media (max-width: 426px) {
+  .empty {
+    left: unset;
+
+    &__redirect {
+      margin-top: 10px;
+    }
+
+    &__image {
+      width: 250px;
+      height: 150px;
+    }
+  }
+}

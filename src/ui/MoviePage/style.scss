@@ -5,3 +5,10 @@
   flex-direction: column;
   margin: 25px 180px;
 }
+
+@media (max-width: 426px) {
+  .movie {
+    align-items: center;
+    margin: 0 20px;
+  }
+}

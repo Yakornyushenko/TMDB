@@ -1,4 +1,4 @@
-import { apiKey, defaultApiUrl } from "@/src/constants";
+import { defaultApiUrl } from "@/src/constants";
 
 const options = {
   method: "GET",
@@ -7,7 +7,7 @@ const options = {
   },
   headers: {
     accept: "application/json",
-    Authorization: `Bearer ${apiKey}`,
+    Authorization: `Bearer ${process.env.API_KEY}`,
   },
 };
 

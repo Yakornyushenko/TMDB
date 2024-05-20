@@ -1,4 +1,5 @@
 @import "../../styles/constants/colors";
+
 .sideBar {
   padding: 24px;
   width: 280px;
@@ -49,4 +50,25 @@
     }
   }
 }
+}
+
+@media (max-width: 426px) {
+  .sideBar {
+    width: 100%;
+    display: block;
+    min-height: unset;
+    background-color: #F2EBF9;
+
+    &__btn-block {
+      display: flex;
+      justify-content: center;
+      flex-direction: unset;
+    }
+
+    &__title {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 30px;
+    }
+  }
 }

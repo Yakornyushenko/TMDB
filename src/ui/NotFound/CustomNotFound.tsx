@@ -17,12 +17,16 @@ export const CustomNotFound = () => {
     <div className={b()}>
       <div className={b("logo")}>
         <h2 className={`${poppins.className} ${b("title")}`}>
-          <Image style={{ marginRight: 12 }} src={Logo} alt="Logo" />
+          <Image src={Logo} alt="Logo" />
           ArrowFlicks
         </h2>
       </div>
       <div className={b("content")}>
-        <Image src={image404} alt="Page not found" />
+        <Image
+          className={b("error-image")}
+          src={image404}
+          alt="Page not found"
+        />
         <p className={b("text")}>We can’t find the page you are looking for</p>
         <Button onClick={() => router.push("/")} style={{ width: 103 }}>
           Go Home

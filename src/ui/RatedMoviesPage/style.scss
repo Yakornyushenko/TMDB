@@ -3,4 +3,26 @@
   margin: 40px;
   grid-template-columns: 0.835fr 1fr;
   align-items: center;
+
+  &__title {
+    font-size: 32px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 426px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin: 15px;
+
+    &__title {
+      font-size: 24px;
+    }
+
+    &__input {
+      width: 280px !important;
+    }
+  }
 }

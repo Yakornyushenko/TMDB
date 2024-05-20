@@ -29,3 +29,17 @@
     }
   }
 }
+
+@media (max-width: 426px) {
+  .moviesList {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: unset;
+    gap: 16px;
+
+    &__pagination {
+      padding-right: unset;
+      justify-content: center;
+    }
+  }
+}

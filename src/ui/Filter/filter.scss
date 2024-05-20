@@ -28,6 +28,10 @@
     gap: 8px;
   }
 
+  &__reset-btn {
+    margin-top: 30px;
+  }
+
   &__select {
     height: 42px;
     width: 283px;
@@ -50,6 +54,30 @@
   &__sort-select {
     div {
       color: $color-black !important;
+    }
+  }
+}
+
+@media (max-width: 426px) {
+  .filter {
+    width: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 32px 0 24px 0;
+
+    &__wrapper {
+      display: grid;
+      width: unset;
+      grid-template-columns: unset;
+      grid-gap: 16px;
+      margin-bottom: 24px;
+      gap: 16px;
+      align-items: center;
+    }
+
+    &__reset-btn {
+      margin-top: 10px;
     }
   }
 }

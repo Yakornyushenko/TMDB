@@ -1,9 +1,9 @@
 "use client";
 import React, { FC, SetStateAction } from "react";
 import { Input } from "@/src/components/Input/Input";
-import block from "bem-cn";
 import loupe from "../../../public/icons/loupe.svg";
 import "./style.scss";
+import block from "bem-cn";
 
 const b = block("header");
 
@@ -14,16 +14,10 @@ interface Props {
 export const Header: FC<Props> = ({ setSearchValue }) => {
   return (
     <div className={b()}>
-      <p
-        style={{
-          fontSize: 32,
-          fontWeight: 700,
-        }}
-      >
-        Rated movies
-      </p>
+      <p className={b("title")}>Rated movies</p>
       {
         <Input
+          className={b("input")}
           type="text"
           startHandler={loupe}
           endHandler={true}
