@@ -1,9 +1,13 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
 import { fetchGenres, fetchMovies } from "@/src/api/api";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { selectedGenres } from "@/src/lib/utils";
 import { Movies, OptionProps } from "@/src/types/base";
-import block from "bem-cn";
+import { RateModal, RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
 import MovieCard from "@/src/ui/MovieCard/MovieCard";
+import { IS_HOME_PAGE, IS_RATED_PAGE, SortBy } from "@/src/constants";
 import {
   initialPaginationInfo,
   Pagination,
@@ -12,11 +16,8 @@ import Image from "next/image";
 import spinner from "../../../public/icons/loadings/spinner.svg";
 import emptyFilters from "../../../public/icons/emptyFilters.svg";
 import "./MoviesList.scss";
-import { RateModal, RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { IS_HOME_PAGE, IS_RATED_PAGE, SortBy } from "@/src/constants";
-import { selectedGenres } from "@/src/lib/utils";
+
+import block from "bem-cn";
 
 const b = block("moviesList");
 export interface Filter {
