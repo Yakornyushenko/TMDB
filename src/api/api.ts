@@ -24,8 +24,12 @@ export async function fetchFilm(id: number) {
 // MoviePage Trailer
 export async function fetchMovieTrailer(id: number) {
   const data = await api(`movie/${id}/videos?language=en-US`);
-  const { key } = data?.results[0];
-  return key;
+  try {
+    const { key } = data?.results[0];
+    return key;
+  } catch (error) {
+    console.error(error);
+  }
 }
 // Genres
 export async function fetchGenres() {
