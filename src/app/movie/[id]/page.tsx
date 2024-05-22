@@ -1,4 +1,4 @@
-import Movie from "@/src/ui/MoviePage";
+import Movie from "@/src/ui/MoviePage/MoviePage";
 
 export default function Page({ params }: { params: { id: string } }) {
   const id = params.id;

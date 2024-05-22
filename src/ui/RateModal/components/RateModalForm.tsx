@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { Button } from "@/src/components/Button/Button";
 import { ButtonType } from "@/src/components/Button/buttonType";
 import block from "bem-cn";
-import RateIcon from "@/public/icons/RateIcon";
+import RateIcon from "@/public/icons/components/RateIcon";
 import { Movies } from "@/src/types/base";
 
 const b = block("rateModalForm");

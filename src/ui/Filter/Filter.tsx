@@ -1,21 +1,18 @@
 "use client";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { fetchGenres } from "@/src/api/api";
+import { Input } from "@/src/components/Input/Input";
+import { Button } from "@/src/components/Button/Button";
+import CustomSelect from "@/src/components/Select/Selector";
+import { createGenresOptions, generateData } from "@/src/lib/utils";
+import { ButtonType } from "@/src/components/Button/buttonType";
+import { OptionProps } from "@/src/types/base";
+import { sortOptions } from "@/src/constants";
+import block from "bem-cn";
+
 import "./filter.scss";
 import LowerArrow from "../../../public/icons/lowerArrow.svg";
 import UpperArrow from "../../../public/icons/upperArrow.svg";
-import block from "bem-cn";
-import { Input } from "@/src/components/Input/Input";
-import { Button } from "@/src/components/Button/Button";
-import { ButtonType } from "@/src/components/Button/buttonType";
-import { fetchGenres } from "@/src/api/api";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import CustomSelect from "@/src/components/Select/Selector";
-import {
-  createGenresOptions,
-  generateData,
-  screenWidth,
-} from "@/src/lib/utils";
-import { OptionProps } from "@/src/types/base";
-import { sortOptions } from "@/src/constants";
 
 const b = block("filter");
 
@@ -129,7 +126,7 @@ const Filter: FC<Props> = ({
         <Button
           className={b("reset-btn")}
           onClick={() => resetFilters()}
-          type={screenWidth > 725 ? ButtonType.Outline : ButtonType.Fulfilled}
+          type={ButtonType.Outline}
         >
           Reset filters
         </Button>

@@ -1,9 +1,12 @@
-import styles from "./page.module.scss";
-import RatedMoviesPage from "@/src/ui/RatedMoviesPage";
+import RatedMoviesPage from "@/src/ui/RatedMoviesPage/RatedMoviesPage";
+import "./page.scss";
+import block from "bem-cn";
+
+const b = block("ratedMovies");
 
 export default function Page() {
   return (
-    <section className={styles.ratedMovies}>
+    <section className={b("ratedMovies")}>
       <RatedMoviesPage />
     </section>
   );

@@ -1,8 +1,8 @@
 "use client";
 import React, { FC, SetStateAction } from "react";
 import { Input } from "@/src/components/Input/Input";
-import loupe from "../../../public/icons/loupe.svg";
-import "./style.scss";
+import loupe from "../../../../public/icons/loupe.svg";
+import "../RatedMoviesPage.scss";
 import block from "bem-cn";
 
 const b = block("header");

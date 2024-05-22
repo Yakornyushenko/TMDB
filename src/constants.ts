@@ -9,7 +9,7 @@ export enum SortBy {
   asc = "asc",
   desc = "desc",
 }
-
+export const defaultTrailerUrl = "https://www.youtube.com/embed/";
 export const defaultApiUrl = "https://api.themoviedb.org/3/";
 
 export const sortOptions: OptionProps[] = [
