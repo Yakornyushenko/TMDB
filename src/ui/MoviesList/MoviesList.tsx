@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { selectedGenres } from "@/src/lib/utils";
 import { Movies, OptionProps } from "@/src/types/base";
-import { RateModal, RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
+import { RateModal, RateModalProps } from "@/src/ui/RateModal/RateModal";
 import MovieCard from "@/src/ui/MovieCard/MovieCard";
 import { IS_HOME_PAGE, IS_RATED_PAGE, SortBy } from "@/src/constants";
 import {
@@ -40,7 +40,7 @@ export const MoviesList: FC<Filter> = ({
   //Routing
   const pathName = usePathname();
   const router = useRouter();
-  // Modal
+  // components
   const [isOpenRateModal, setIsOpenRateModal] = useState<boolean>(false);
   const [rateModalProps, setRateModalProps] = useState<RateModalProps>();
   // DATA/API

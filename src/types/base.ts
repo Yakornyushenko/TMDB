@@ -36,12 +36,6 @@ export namespace Movies {
     id: number;
     name: string;
   }
-  export interface All {
-    page: number;
-    results: Movie[];
-    total_results: number;
-    total_pages: number;
-  }
   export interface PaginationInfo {
     totalResults: number;
     totalPages: number;

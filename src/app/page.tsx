@@ -1,6 +1,6 @@
 import block from "bem-cn";
 import "./page.scss";
-import HomePage from "@/src/ui/HomePage";
+import HomePage from "@/src/ui/HomePage/HomePage";
 
 const b = block("home");
 

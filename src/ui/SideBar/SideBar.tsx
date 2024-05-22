@@ -1,15 +1,15 @@
 "use client";
 import React from "react";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { poppins } from "@/src/styles/fonts";
+import { IS_HOME_PAGE, IS_RATED_PAGE } from "@/src/constants";
+import block from "bem-cn";
+
 import "../../styles/globals.css";
 import "./sideBar.scss";
 import Logo from "../../../public/icons/logo.svg";
-
-import Image from "next/image";
-import block from "bem-cn";
-import Link from "next/link";
-import { poppins } from "@/src/styles/fonts";
-import { usePathname } from "next/navigation";
-import { IS_HOME_PAGE, IS_RATED_PAGE } from "@/src/constants";
 
 const b = block("sideBar");
 

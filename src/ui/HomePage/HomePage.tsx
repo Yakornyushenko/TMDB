@@ -1,12 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import block from "bem-cn";
 import Filter from "@/src/ui/Filter/Filter";
 import { MoviesList } from "@/src/ui/MoviesList/MoviesList";
 import { OptionProps } from "@/src/types/base";
 import { sortOptions } from "@/src/constants";
-
-const b = block("homePage");
 
 const HomePage = () => {
   const [filters, setFilters] = useState();
@@ -31,7 +28,7 @@ const HomePage = () => {
   );
   return (
     <>
-      <h1 className={b()}>Movies</h1>
+      <h1>Movies</h1>
       <Filter
         selectedGenre={selectedGenre}
         setSelectedGenre={setSelectedGenre}

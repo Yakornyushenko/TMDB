@@ -1,10 +1,10 @@
 "use client";
 import React, { FC } from "react";
 import "./RateModalForm.scss";
-import "../../../styles/constants/colors.scss";
+import "../../styles/constants/colors.scss";
 
 import { BaseModalProps, Modal } from "@/src/components/Modal/Modal";
-import { RateModalForm } from "@/src/ui/RateModal/RateModalForm";
+import { RateModalForm } from "@/src/ui/RateModal/components/RateModalForm";
 import { Movies } from "@/src/types/base";
 
 export interface RateModalProps extends BaseModalProps {

@@ -1,16 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { fetchFilm, fetchMovieTrailer } from "@/src/api/api";
 import { Breadcrumbs } from "@/src/components/Breadcrumbs/Breadcrumbs";
 import SideBar from "@/src/ui/SideBar/SideBar";
-import { fetchFilm, fetchMovieTrailer } from "@/src/api/api";
-import block from "bem-cn";
-import "./style.scss";
+import MovieContent from "@/src/ui/MoviePage/MovieContent/MovieContent";
 import MovieCard from "@/src/ui/MovieCard/MovieCard";
-import { RateModal, RateModalProps } from "@/src/ui/RateModal/Modal/RateModal";
+import { RateModal, RateModalProps } from "@/src/ui/RateModal/RateModal";
+import { Movies } from "@/src/types/base";
+import { defaultTrailerUrl } from "@/src/constants";
+import block from "bem-cn";
+
+import "./MoviePage.scss";
 import Image from "next/image";
 import spinner from "@/public/icons/loadings/spinner.svg";
-import { Movies } from "@/src/types/base";
-import MovieContent from "@/src/ui/MoviePage/MovieContent/MovieContent";
 
 const b = block("movie");
 
@@ -27,7 +29,7 @@ const Movie = ({ id }) => {
       setFilm(data);
     });
     fetchMovieTrailer(id)
-      .then((data) => setTrailerUrl(`https://www.youtube.com/embed/${data}`))
+      .then((data) => setTrailerUrl(`${defaultTrailerUrl}${data}`))
       .finally(() => setIsLoading(false));
     // eslint-disable-next-line
   }, []);

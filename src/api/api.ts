@@ -12,16 +12,16 @@ export async function fetchMovies(
   sortBy: SortBy
 ) {
   const data = await api(
-    `discover/movie?include_adult=false&include_video=false&language=en-US&page=${currentPage}&primary_release_year=${release}&with_genres=${genres || 18}&vote_average.lte=${to}&vote_average.gte=${from}&sort_by=${sort}.${sortBy}\`,`
+    `discover/movie?include_adult=false&include_video=false&language=en-US&page=${currentPage}&primary_release_year=${release}&with_genres=${genres || 18}&vote_average.lte=${to}&vote_average.gte=${from}&sort_by=${sort}.${sortBy}`
   );
   const { page, results, total_pages, total_results } = data;
   return { page, total_pages, total_results, results };
 }
-// MoviePage
+// Movie
 export async function fetchFilm(id: number) {
   return await api(`movie/${id}?language=en-US`);
 }
-// MoviePage Trailer
+// Movie trailer
 export async function fetchMovieTrailer(id: number) {
   const data = await api(`movie/${id}/videos?language=en-US`);
   try {

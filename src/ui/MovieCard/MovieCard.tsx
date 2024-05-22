@@ -1,14 +1,15 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
-import block from "bem-cn";
+import { Movies } from "@/src/types/base";
+import { BASE_IMAGE_URL } from "@/src/constants";
+import Link from "next/link";
 import Image from "next/image";
+import block from "bem-cn";
+
 import noImage from "../../../public/icons/noImage.png";
 import goldRatingStar from "../../../public/icons/stars/goldRatingStar.svg";
 import "./MovieCard.scss";
-import { BASE_IMAGE_URL } from "@/src/constants";
-import RateIcon from "@/public/icons/RateIcon";
-import Link from "next/link";
-import { Movies } from "@/src/types/base";
+import RateIcon from "@/public/icons/components/RateIcon";
 
 const b = block("movieCard");
 
@@ -74,6 +75,10 @@ const MovieCard: FC<Movies.MovieCard> = ({
     };
     return summary?.toLocaleString("en-US", options).slice(0, -3);
   };
+  const voteFormat = (vote: number) => {
+    if (vote >= 1000) return `${(vote / 1000).toFixed(1)}M`;
+    else return `${vote}K`;
+  };
 
   return (
     <Link
@@ -116,9 +121,7 @@ const MovieCard: FC<Movies.MovieCard> = ({
               <Image src={goldRatingStar} alt="Rating" />
 
               <p>{String(rating)?.slice(0, 3)}</p>
-              <p className={b("sub-title")}>
-                ({String(voteCount)?.slice(0, 3)}M)
-              </p>
+              <p className={b("sub-title")}>({voteFormat(voteCount)})</p>
             </div>
           ) : (
             <p className={b("sub-title")}>Not indicated</p>
