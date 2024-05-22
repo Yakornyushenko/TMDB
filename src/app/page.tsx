@@ -7,9 +7,7 @@ const b = block("home");
 export default async function Page() {
   return (
     <main className={b()}>
-      <section>
-        <HomePage />
-      </section>
+      <HomePage />
     </main>
   );
 }

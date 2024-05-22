@@ -4,7 +4,9 @@ import Filter from "@/src/ui/Filter/Filter";
 import { MoviesList } from "@/src/ui/MoviesList/MoviesList";
 import { OptionProps } from "@/src/types/base";
 import { sortOptions } from "@/src/constants";
+import block from "bem-cn";
 
+const b = block("homePage");
 const HomePage = () => {
   const [filters, setFilters] = useState();
   useEffect(() => {
@@ -27,8 +29,8 @@ const HomePage = () => {
     filters?.selectedFrom || ""
   );
   return (
-    <>
-      <h1>Movies</h1>
+    <section>
+      <h1 className={b("title")}>Movies</h1>
       <Filter
         selectedGenre={selectedGenre}
         setSelectedGenre={setSelectedGenre}
@@ -48,7 +50,7 @@ const HomePage = () => {
         selectedDate={selectedDate}
         selectedGenre={selectedGenre}
       />
-    </>
+    </section>
   );
 };
 

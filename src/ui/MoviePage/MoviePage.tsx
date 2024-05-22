@@ -17,6 +17,7 @@ import spinner from "@/public/icons/loadings/spinner.svg";
 const b = block("movie");
 
 const Movie = ({ id }) => {
+  console.log("id", id);
   const [film, setFilm] = useState();
   const [trailerUrl, setTrailerUrl] = useState<string>();
   const [isOpenRateModal, setIsOpenRateModal] = useState<boolean>(false);
