@@ -18,6 +18,7 @@ import emptyFilters from "../../../public/icons/emptyFilters.svg";
 import "./MoviesList.scss";
 
 import block from "bem-cn";
+import { useAppSelector } from "@/src/lib/store/hooks";
 
 const b = block("moviesList");
 export interface Filter {
@@ -44,11 +45,12 @@ export const MoviesList: FC<Filter> = ({
   const [isOpenRateModal, setIsOpenRateModal] = useState<boolean>(false);
   const [rateModalProps, setRateModalProps] = useState<RateModalProps>();
   // DATA/API
+  const ratedMovies = useAppSelector((state) => state.ratedMovies);
   const [movies, setMovies] = useState<Movies.Movie[]>();
   const [genres, setGenres] = useState<Movies.Genre[]>();
-  const [movieStorage, setMovieStorage] = useState<any>();
+  const [movieStorage, setMovieStorage] = useState<Movies.Movie[]>();
   // pagination
-  const [page, setPage] = useState<number>(initialPaginationInfo.page);
+  const page = useAppSelector((state) => state.pagination);
   const [paginationInfo, setPaginationInfo] = useState<Movies.PaginationInfo>(
     initialPaginationInfo
   );
@@ -56,15 +58,12 @@ export const MoviesList: FC<Filter> = ({
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const currentPage = localStorage.getItem("currentPage");
-    const stringStorage = localStorage?.getItem("movies");
-    const parseStorage = JSON.parse(stringStorage);
     setIsLoading(true);
     fetchGenres().then((data) => setGenres(data));
 
     if (pathName === IS_HOME_PAGE) {
       fetchMovies(
-        Number(currentPage) || page || 1,
+        page || 1,
         selectedDate?.value as number,
         selectedSort?.value as string,
         selectedGenre?.value as number,
@@ -78,20 +77,23 @@ export const MoviesList: FC<Filter> = ({
 
           setPaginationInfo({
             totalResults: data?.total_results ?? 0,
-            page: currentPage ? Number(currentPage) : data.page,
+            page: data.page.value,
             totalPages: data?.total_pages ?? 0,
           });
         })
         .finally(() => setIsLoading(false));
     } else if (pathName === IS_RATED_PAGE) {
+      const filteredRatedMovies = ratedMovies?.filter(
+        (item) => item.personalRating !== undefined
+      );
       if (searchValue?.length > 0) {
-        const foundRatedMovie = parseStorage?.find(
+        const foundRatedMovie = filteredRatedMovies?.find(
           (item) => item.title === searchValue
         );
 
         setPaginationInfo({
           totalResults: foundRatedMovie?.length ?? 0,
-          page: foundRatedMovie ? Number(currentPage) : page,
+          page: page.value,
           totalPages:
             foundRatedMovie?.length >= 4 ? foundRatedMovie?.length / 4 : 0,
         });
@@ -105,14 +107,19 @@ export const MoviesList: FC<Filter> = ({
         return;
       }
       setPaginationInfo({
-        totalResults: parseStorage?.length ?? 0,
-        page: currentPage ? Number(currentPage) : page,
-        totalPages: parseStorage?.length >= 4 ? parseStorage?.length / 4 : 0,
+        totalResults: filteredRatedMovies?.length ?? 0,
+        page: page.value,
+        totalPages:
+          filteredRatedMovies?.length >= 4
+            ? filteredRatedMovies?.length / 4
+            : 0,
       });
       // rating's pagination count
-      const firstSliceValue = page * 4;
-      const secondSliceValue = (page + 1) * 4;
-      setMovieStorage(parseStorage?.slice(firstSliceValue, secondSliceValue));
+      const firstSliceValue = page.value * 4;
+      const secondSliceValue = (page.value + 1) * 4;
+      setMovieStorage(
+        filteredRatedMovies?.slice(firstSliceValue, secondSliceValue)
+      );
 
       setIsLoading(false);
     }
@@ -189,8 +196,6 @@ export const MoviesList: FC<Filter> = ({
       >
         <Pagination
           isLoading={isLoading}
-          page={page}
-          setPage={setPage}
           totalPages={paginationInfo.totalPages}
         />
       </div>
