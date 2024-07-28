@@ -63,7 +63,7 @@ export const MoviesList: FC<Filter> = ({
 
     if (pathName === IS_HOME_PAGE) {
       fetchMovies(
-        page || 1,
+        page.value || 1,
         selectedDate?.value as number,
         selectedSort?.value as string,
         selectedGenre?.value as number,
@@ -77,7 +77,7 @@ export const MoviesList: FC<Filter> = ({
 
           setPaginationInfo({
             totalResults: data?.total_results ?? 0,
-            page: data.page.value,
+            page: data.page ?? page.value,
             totalPages: data?.total_pages ?? 0,
           });
         })
