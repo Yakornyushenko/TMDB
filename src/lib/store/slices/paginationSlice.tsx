@@ -5,7 +5,7 @@ interface PaginationProps {
 }
 
 const initialState: PaginationProps = {
-  value: 0,
+  value: 1,
 };
 export const paginationSlice = createSlice({
   name: "pagination",

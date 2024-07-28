@@ -63,7 +63,7 @@ export const MoviesList: FC<Filter> = ({
 
     if (pathName === IS_HOME_PAGE) {
       fetchMovies(
-        page.value || 1,
+        page.value + 1 || 1,
         selectedDate?.value as number,
         selectedSort?.value as string,
         selectedGenre?.value as number,
