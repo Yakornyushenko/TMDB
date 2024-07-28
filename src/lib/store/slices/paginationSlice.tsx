@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface CounterProps {
+interface PaginationProps {
   value: number;
 }
 
-const initialState: CounterProps = {
+const initialState: PaginationProps = {
   value: 0,
 };
 export const paginationSlice = createSlice({
