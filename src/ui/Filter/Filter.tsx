@@ -52,17 +52,6 @@ const Filter: FC<Props> = ({
     });
   }, []);
 
-  useEffect(() => {
-    const filters = JSON.stringify({
-      selectedFrom: selectedFrom,
-      selectedTo: selectedTo,
-      selectedSort: selectedSort,
-      selectedDate: selectedDate,
-      selectedGenre: selectedGenre,
-    });
-    localStorage.setItem("filters", filters);
-  }, [selectedDate, selectedGenre, selectedSort, selectedTo, selectedFrom]);
-
   const resetFilters = () => {
     setSelectedFrom("");
     setSelectedTo("");

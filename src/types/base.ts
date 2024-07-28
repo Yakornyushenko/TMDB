@@ -25,6 +25,7 @@ export namespace Movies {
     video?: boolean;
     vote_average?: number;
     vote_count?: number;
+    personalRating?: number;
   }
   export interface MovieCard extends Movie {
     isMoviePage?: boolean;

@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { Movies } from "@/src/types/base";
 import { BASE_IMAGE_URL } from "@/src/constants";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import noImage from "../../../public/icons/noImage.png";
 import goldRatingStar from "../../../public/icons/stars/goldRatingStar.svg";
 import "./MovieCard.scss";
 import RateIcon from "@/public/icons/components/RateIcon";
+import { useAppSelector } from "@/src/lib/store/hooks";
 
 const b = block("movieCard");
 
@@ -29,14 +30,9 @@ const MovieCard: FC<Movies.MovieCard> = ({
   budget,
   revenue,
 }) => {
-  const [checkRate, setCheckRate] = useState<number>();
+  const ratedMoviesStore = useAppSelector((state) => state.ratedMovies);
 
-  useEffect(() => {
-    const stringStorage = localStorage?.getItem("movies");
-    const parseStorage = JSON.parse(stringStorage);
-    const movie = parseStorage?.find((item) => item.id === id);
-    setCheckRate(movie?.personalRating);
-  }, []);
+  const ratedMovie = ratedMoviesStore?.find((movie) => movie.id === id);
 
   const rateIconHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -105,11 +101,13 @@ const MovieCard: FC<Movies.MovieCard> = ({
             >
               <RateIcon
                 className={b("rate-icon", {
-                  rated: checkRate !== undefined,
+                  rated: ratedMovie?.personalRating !== undefined,
                 })}
               />
-              {checkRate && (
-                <span className={b("rate-value")}>{checkRate}</span>
+              {ratedMovie?.personalRating && (
+                <span className={b("rate-value")}>
+                  {ratedMovie?.personalRating}
+                </span>
               )}
             </div>
           </div>

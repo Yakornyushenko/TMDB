@@ -1,28 +1,12 @@
-.header {
-  display: grid;
-  margin: 40px;
-  grid-template-columns: 0.835fr 1fr;
-  align-items: center;
-
-  &__title {
-    font-size: 32px;
-    font-weight: 700;
-  }
+.ratedMovies {
+  margin-left: 90px;
 }
 
 @media (max-width: 426px) {
-  .header {
+  .ratedMovies {
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    margin: 15px;
-
-    &__title {
-      font-size: 24px;
-    }
-
-    &__input {
-      width: 280px !important;
-    }
+    align-items: center;
+    margin: 0;
   }
 }

@@ -5,6 +5,8 @@ import { ButtonType } from "@/src/components/Button/buttonType";
 import block from "bem-cn";
 import RateIcon from "@/public/icons/components/RateIcon";
 import { Movies } from "@/src/types/base";
+import { addMovie, reRateMovie } from "@/src/lib/store/slices/ratedMoviesSlice";
+import { useAppDispatch, useAppSelector } from "@/src/lib/store/hooks";
 
 const b = block("rateModalForm");
 
@@ -19,70 +21,55 @@ interface RateModalProps {
 }
 
 export const RateModalForm: FC<RateModalProps> = (props) => {
+  const ratedMoviesStore = useAppSelector((state) => state.ratedMovies);
+  const dispatch = useAppDispatch();
   const { movieTitle, setIsOpen, id } = props;
-
-  useEffect(() => {
-    const stringStorage = localStorage?.getItem("movies");
-    const storageRatedMovies = JSON.parse(stringStorage);
-    const foundMovie = storageRatedMovies?.find((item) => item.id === id);
-    setRate(foundMovie?.personalRating);
-  }, []);
 
   const [selected, setSelected] = useState<number | undefined>(undefined);
   const [rate, setRate] = useState<number | undefined>();
+  const [ratedMovieProps, setRatedMovieProps] = useState<any>();
+
+  const ratedMovie = ratedMoviesStore?.find((movie) => movie?.id === id);
+
+  useEffect(() => {
+    setRate(ratedMovie?.personalRating);
+  }, []);
 
   const arrayStars = Array.from({ length: 10 }, (component, index) => (
     <RateIcon key={index} />
   ));
+  useEffect(() => {
+    setRatedMovieProps({
+      genre_ids: props.genres,
+      id: Number(props.id),
+      backdrop_path: props.image,
+      title: props.movieTitle,
+      vote_average: props.rating,
+      release_date: props.release,
+      vote_count: props.voteCount,
+      personalRating: rate,
+    });
+  }, [rate]);
 
-  const ratedMovieProps = {
-    genre_ids: props.genres,
-    id: props.id,
-    backdrop_path: props.image,
-    title: props.movieTitle,
-    vote_average: props.rating,
-    release_date: props.release,
-    vote_count: props.voteCount,
-    personalRating: rate,
-  };
-  // localStorage logic
-  const stringRatedMovies = localStorage?.getItem("movies");
-  const parseMovies = JSON.parse(stringRatedMovies);
-
-  const isDuplicateMovie = parseMovies?.find(
-    (item) => item.id === ratedMovieProps.id
-  );
-  const dubbedMovies = parseMovies?.filter(
-    (item) => item.id !== ratedMovieProps.id
+  const isDuplicateMovie = ratedMoviesStore?.find(
+    (item) => item?.id === ratedMovieProps?.id
   );
 
   const changeRateMovie = () => {
-    const ratedMovies = JSON.parse(localStorage?.getItem("movies"));
-
-    if (ratedMovies === null) {
-      const arr = [];
-      arr.push(ratedMovieProps);
-      localStorage.setItem("movies", JSON.stringify(arr));
+    if (!ratedMoviesStore) {
+      dispatch(addMovie(ratedMovieProps));
     } else {
       if (rate) {
         if (isDuplicateMovie) {
-          dubbedMovies.push(ratedMovieProps);
-          localStorage.setItem("movies", JSON.stringify(dubbedMovies));
+          dispatch(reRateMovie(ratedMovieProps));
         } else {
-          parseMovies.push(ratedMovieProps);
-          const newRatedMovies = JSON.stringify(parseMovies);
-          localStorage.setItem("movies", newRatedMovies);
+          dispatch(addMovie(ratedMovieProps));
         }
+      } else {
+        dispatch(reRateMovie(ratedMovieProps));
       }
     }
     setIsOpen(false);
-    window.location.reload();
-  };
-
-  const removeRatedMovie = () => {
-    setRate(undefined);
-    if (isDuplicateMovie)
-      localStorage.setItem("movies", JSON.stringify(dubbedMovies));
   };
 
   return (
@@ -111,7 +98,7 @@ export const RateModalForm: FC<RateModalProps> = (props) => {
           Save
         </Button>
         <Button
-          onClick={() => removeRatedMovie()}
+          onClick={() => setRate(undefined)}
           type={ButtonType.Outline}
           purpleText
         >

@@ -56,7 +56,7 @@ const Movie = ({ id }) => {
           ]}
         />
         <MovieCard
-          id={id}
+          id={Number(id)}
           title={film?.original_title}
           release={film?.release_date}
           image={film?.poster_path}

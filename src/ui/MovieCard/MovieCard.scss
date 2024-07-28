@@ -117,5 +117,9 @@ p {
       margin-right: unset;
       object-fit: initial;
     }
+
+    &__description-row {
+      display: block;
+    }
   }
 }

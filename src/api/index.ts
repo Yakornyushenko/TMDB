@@ -10,7 +10,6 @@ const options = {
     Authorization: `Bearer ${process.env.API_KEY}`,
   },
 };
-
 export const api = async (url: string) => {
   const response = await fetch(`${defaultApiUrl}${url} `, options);
   try {

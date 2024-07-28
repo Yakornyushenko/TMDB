@@ -1,34 +1,24 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Filter from "@/src/ui/Filter/Filter";
 import { MoviesList } from "@/src/ui/MoviesList/MoviesList";
 import { OptionProps } from "@/src/types/base";
 import { sortOptions } from "@/src/constants";
+import block from "bem-cn";
+
+const b = block("homePage");
 
 const HomePage = () => {
-  const [filters, setFilters] = useState();
-  useEffect(() => {
-    setFilters(JSON.parse(localStorage.getItem("filters")));
-  }, []);
-
-  const [selectedGenre, setSelectedGenre] = useState<OptionProps>(
-    filters?.selectedGenre || null
-  );
-  const [selectedDate, setSelectedDate] = useState<OptionProps>(
-    filters?.selectedDate || null
-  );
+  const [selectedGenre, setSelectedGenre] = useState<OptionProps>(null);
+  const [selectedDate, setSelectedDate] = useState<OptionProps>(null);
   const [selectedSort, setSelectedSort] = useState<OptionProps>(
-    filters?.selectedSort || sortOptions[1] || null
+    sortOptions[1] || null
   );
-  const [selectedTo, setSelectedTo] = useState<string | number>(
-    filters?.selectedTo || ""
-  );
-  const [selectedFrom, setSelectedFrom] = useState<string | number>(
-    filters?.selectedFrom || ""
-  );
+  const [selectedTo, setSelectedTo] = useState<string | number>("");
+  const [selectedFrom, setSelectedFrom] = useState<string | number>("");
   return (
-    <>
-      <h1>Movies</h1>
+    <section>
+      <h1 className={b("title")}>Movies</h1>
       <Filter
         selectedGenre={selectedGenre}
         setSelectedGenre={setSelectedGenre}
@@ -48,7 +38,7 @@ const HomePage = () => {
         selectedDate={selectedDate}
         selectedGenre={selectedGenre}
       />
-    </>
+    </section>
   );
 };
 
